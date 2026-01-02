@@ -1,0 +1,1037 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMVaqhv4jY27gvKGO1fpeeR",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%205\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Aula 5: Python para Ciências de Dados**\n"
+      ],
+      "metadata": {
+        "id": "8dMo_Y6-f5Sp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.1. Primeiros Comandos**"
+      ],
+      "metadata": {
+        "id": "fiqaU68cVp1z"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Definição de uma variável e atribuição de um valor\n",
+        "nome = \"Fabiano Rodrigues Coelho\"\n",
+        "idade = 35\n",
+        "\n",
+        "# Entrada de dados (lendo do teclado)\n",
+        "nome_usuario = input(\"Digite seu nome: \")\n",
+        "idade_usuario = int(input(\"Digite sua idade: \"))\n",
+        "\n",
+        "# Saída de dados (impressão na tela)\n",
+        "print(\"Nome informado:\", nome_usuario)\n",
+        "print(\"Idade informada:\", idade_usuario)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6KQWhnzLWsTj",
+        "outputId": "bb2519d0-d659-4240-e492-be8431633a36"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Digite seu nome: Fabiano\n",
+            "Digite sua idade: 36\n",
+            "Nome informado: Fabiano\n",
+            "Idade informada: 36\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## **1.2. Variáveis como Objetos**"
+      ],
+      "metadata": {
+        "id": "FbJClCJ_jk2i"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Definição de uma variável como objeto\n",
+        "fruta = \"banana\"  # Variável com um valor de string\n",
+        "\n",
+        "# Propriedade de um objeto (tamanho da string)\n",
+        "tamanho_fruta = len(fruta)\n",
+        "\n",
+        "# Método do objeto (método upper() para maiúsculas)\n",
+        "fruta_maiuscula = fruta.upper()\n",
+        "\n",
+        "print(\"Fruta:\", fruta)\n",
+        "print(\"Tamanho da fruta:\", tamanho_fruta)\n",
+        "print(\"Fruta em maiúsculas:\", fruta_maiuscula)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XRHbT5TijgM7",
+        "outputId": "1f033f00-8b90-4f93-a68a-aa14b7efdd49"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Fruta: banana\n",
+            "Tamanho da fruta: 6\n",
+            "Fruta em maiúsculas: BANANA\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import math\n",
+        "help(math)"
+      ],
+      "metadata": {
+        "id": "EJTbamV9u0a5",
+        "outputId": "bb9a741a-7ec0-444a-99a2-8c1f094d7717",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Help on built-in module math:\n",
+            "\n",
+            "NAME\n",
+            "    math\n",
+            "\n",
+            "DESCRIPTION\n",
+            "    This module provides access to the mathematical functions\n",
+            "    defined by the C standard.\n",
+            "\n",
+            "FUNCTIONS\n",
+            "    acos(x, /)\n",
+            "        Return the arc cosine (measured in radians) of x.\n",
+            "\n",
+            "        The result is between 0 and pi.\n",
+            "\n",
+            "    acosh(x, /)\n",
+            "        Return the inverse hyperbolic cosine of x.\n",
+            "\n",
+            "    asin(x, /)\n",
+            "        Return the arc sine (measured in radians) of x.\n",
+            "\n",
+            "        The result is between -pi/2 and pi/2.\n",
+            "\n",
+            "    asinh(x, /)\n",
+            "        Return the inverse hyperbolic sine of x.\n",
+            "\n",
+            "    atan(x, /)\n",
+            "        Return the arc tangent (measured in radians) of x.\n",
+            "\n",
+            "        The result is between -pi/2 and pi/2.\n",
+            "\n",
+            "    atan2(y, x, /)\n",
+            "        Return the arc tangent (measured in radians) of y/x.\n",
+            "\n",
+            "        Unlike atan(y/x), the signs of both x and y are considered.\n",
+            "\n",
+            "    atanh(x, /)\n",
+            "        Return the inverse hyperbolic tangent of x.\n",
+            "\n",
+            "    cbrt(x, /)\n",
+            "        Return the cube root of x.\n",
+            "\n",
+            "    ceil(x, /)\n",
+            "        Return the ceiling of x as an Integral.\n",
+            "\n",
+            "        This is the smallest integer >= x.\n",
+            "\n",
+            "    comb(n, k, /)\n",
+            "        Number of ways to choose k items from n items without repetition and without order.\n",
+            "\n",
+            "        Evaluates to n! / (k! * (n - k)!) when k <= n and evaluates\n",
+            "        to zero when k > n.\n",
+            "\n",
+            "        Also called the binomial coefficient because it is equivalent\n",
+            "        to the coefficient of k-th term in polynomial expansion of the\n",
+            "        expression (1 + x)**n.\n",
+            "\n",
+            "        Raises TypeError if either of the arguments are not integers.\n",
+            "        Raises ValueError if either of the arguments are negative.\n",
+            "\n",
+            "    copysign(x, y, /)\n",
+            "        Return a float with the magnitude (absolute value) of x but the sign of y.\n",
+            "\n",
+            "        On platforms that support signed zeros, copysign(1.0, -0.0)\n",
+            "        returns -1.0.\n",
+            "\n",
+            "    cos(x, /)\n",
+            "        Return the cosine of x (measured in radians).\n",
+            "\n",
+            "    cosh(x, /)\n",
+            "        Return the hyperbolic cosine of x.\n",
+            "\n",
+            "    degrees(x, /)\n",
+            "        Convert angle x from radians to degrees.\n",
+            "\n",
+            "    dist(p, q, /)\n",
+            "        Return the Euclidean distance between two points p and q.\n",
+            "\n",
+            "        The points should be specified as sequences (or iterables) of\n",
+            "        coordinates.  Both inputs must have the same dimension.\n",
+            "\n",
+            "        Roughly equivalent to:\n",
+            "            sqrt(sum((px - qx) ** 2.0 for px, qx in zip(p, q)))\n",
+            "\n",
+            "    erf(x, /)\n",
+            "        Error function at x.\n",
+            "\n",
+            "    erfc(x, /)\n",
+            "        Complementary error function at x.\n",
+            "\n",
+            "    exp(x, /)\n",
+            "        Return e raised to the power of x.\n",
+            "\n",
+            "    exp2(x, /)\n",
+            "        Return 2 raised to the power of x.\n",
+            "\n",
+            "    expm1(x, /)\n",
+            "        Return exp(x)-1.\n",
+            "\n",
+            "        This function avoids the loss of precision involved in the direct evaluation of exp(x)-1 for small x.\n",
+            "\n",
+            "    fabs(x, /)\n",
+            "        Return the absolute value of the float x.\n",
+            "\n",
+            "    factorial(n, /)\n",
+            "        Find n!.\n",
+            "\n",
+            "        Raise a ValueError if x is negative or non-integral.\n",
+            "\n",
+            "    floor(x, /)\n",
+            "        Return the floor of x as an Integral.\n",
+            "\n",
+            "        This is the largest integer <= x.\n",
+            "\n",
+            "    fmod(x, y, /)\n",
+            "        Return fmod(x, y), according to platform C.\n",
+            "\n",
+            "        x % y may differ.\n",
+            "\n",
+            "    frexp(x, /)\n",
+            "        Return the mantissa and exponent of x, as pair (m, e).\n",
+            "\n",
+            "        m is a float and e is an int, such that x = m * 2.**e.\n",
+            "        If x is 0, m and e are both 0.  Else 0.5 <= abs(m) < 1.0.\n",
+            "\n",
+            "    fsum(seq, /)\n",
+            "        Return an accurate floating-point sum of values in the iterable seq.\n",
+            "\n",
+            "        Assumes IEEE-754 floating-point arithmetic.\n",
+            "\n",
+            "    gamma(x, /)\n",
+            "        Gamma function at x.\n",
+            "\n",
+            "    gcd(*integers)\n",
+            "        Greatest Common Divisor.\n",
+            "\n",
+            "    hypot(...)\n",
+            "        hypot(*coordinates) -> value\n",
+            "\n",
+            "        Multidimensional Euclidean distance from the origin to a point.\n",
+            "\n",
+            "        Roughly equivalent to:\n",
+            "            sqrt(sum(x**2 for x in coordinates))\n",
+            "\n",
+            "        For a two dimensional point (x, y), gives the hypotenuse\n",
+            "        using the Pythagorean theorem:  sqrt(x*x + y*y).\n",
+            "\n",
+            "        For example, the hypotenuse of a 3/4/5 right triangle is:\n",
+            "\n",
+            "            >>> hypot(3.0, 4.0)\n",
+            "            5.0\n",
+            "\n",
+            "    isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)\n",
+            "        Determine whether two floating-point numbers are close in value.\n",
+            "\n",
+            "          rel_tol\n",
+            "            maximum difference for being considered \"close\", relative to the\n",
+            "            magnitude of the input values\n",
+            "          abs_tol\n",
+            "            maximum difference for being considered \"close\", regardless of the\n",
+            "            magnitude of the input values\n",
+            "\n",
+            "        Return True if a is close in value to b, and False otherwise.\n",
+            "\n",
+            "        For the values to be considered close, the difference between them\n",
+            "        must be smaller than at least one of the tolerances.\n",
+            "\n",
+            "        -inf, inf and NaN behave similarly to the IEEE 754 Standard.  That\n",
+            "        is, NaN is not close to anything, even itself.  inf and -inf are\n",
+            "        only close to themselves.\n",
+            "\n",
+            "    isfinite(x, /)\n",
+            "        Return True if x is neither an infinity nor a NaN, and False otherwise.\n",
+            "\n",
+            "    isinf(x, /)\n",
+            "        Return True if x is a positive or negative infinity, and False otherwise.\n",
+            "\n",
+            "    isnan(x, /)\n",
+            "        Return True if x is a NaN (not a number), and False otherwise.\n",
+            "\n",
+            "    isqrt(n, /)\n",
+            "        Return the integer part of the square root of the input.\n",
+            "\n",
+            "    lcm(*integers)\n",
+            "        Least Common Multiple.\n",
+            "\n",
+            "    ldexp(x, i, /)\n",
+            "        Return x * (2**i).\n",
+            "\n",
+            "        This is essentially the inverse of frexp().\n",
+            "\n",
+            "    lgamma(x, /)\n",
+            "        Natural logarithm of absolute value of Gamma function at x.\n",
+            "\n",
+            "    log(...)\n",
+            "        log(x, [base=math.e])\n",
+            "        Return the logarithm of x to the given base.\n",
+            "\n",
+            "        If the base is not specified, returns the natural logarithm (base e) of x.\n",
+            "\n",
+            "    log10(x, /)\n",
+            "        Return the base 10 logarithm of x.\n",
+            "\n",
+            "    log1p(x, /)\n",
+            "        Return the natural logarithm of 1+x (base e).\n",
+            "\n",
+            "        The result is computed in a way which is accurate for x near zero.\n",
+            "\n",
+            "    log2(x, /)\n",
+            "        Return the base 2 logarithm of x.\n",
+            "\n",
+            "    modf(x, /)\n",
+            "        Return the fractional and integer parts of x.\n",
+            "\n",
+            "        Both results carry the sign of x and are floats.\n",
+            "\n",
+            "    nextafter(x, y, /, *, steps=None)\n",
+            "        Return the floating-point value the given number of steps after x towards y.\n",
+            "\n",
+            "        If steps is not specified or is None, it defaults to 1.\n",
+            "\n",
+            "        Raises a TypeError, if x or y is not a double, or if steps is not an integer.\n",
+            "        Raises ValueError if steps is negative.\n",
+            "\n",
+            "    perm(n, k=None, /)\n",
+            "        Number of ways to choose k items from n items without repetition and with order.\n",
+            "\n",
+            "        Evaluates to n! / (n - k)! when k <= n and evaluates\n",
+            "        to zero when k > n.\n",
+            "\n",
+            "        If k is not specified or is None, then k defaults to n\n",
+            "        and the function returns n!.\n",
+            "\n",
+            "        Raises TypeError if either of the arguments are not integers.\n",
+            "        Raises ValueError if either of the arguments are negative.\n",
+            "\n",
+            "    pow(x, y, /)\n",
+            "        Return x**y (x to the power of y).\n",
+            "\n",
+            "    prod(iterable, /, *, start=1)\n",
+            "        Calculate the product of all the elements in the input iterable.\n",
+            "\n",
+            "        The default start value for the product is 1.\n",
+            "\n",
+            "        When the iterable is empty, return the start value.  This function is\n",
+            "        intended specifically for use with numeric values and may reject\n",
+            "        non-numeric types.\n",
+            "\n",
+            "    radians(x, /)\n",
+            "        Convert angle x from degrees to radians.\n",
+            "\n",
+            "    remainder(x, y, /)\n",
+            "        Difference between x and the closest integer multiple of y.\n",
+            "\n",
+            "        Return x - n*y where n*y is the closest integer multiple of y.\n",
+            "        In the case where x is exactly halfway between two multiples of\n",
+            "        y, the nearest even value of n is used. The result is always exact.\n",
+            "\n",
+            "    sin(x, /)\n",
+            "        Return the sine of x (measured in radians).\n",
+            "\n",
+            "    sinh(x, /)\n",
+            "        Return the hyperbolic sine of x.\n",
+            "\n",
+            "    sqrt(x, /)\n",
+            "        Return the square root of x.\n",
+            "\n",
+            "    sumprod(p, q, /)\n",
+            "        Return the sum of products of values from two iterables p and q.\n",
+            "\n",
+            "        Roughly equivalent to:\n",
+            "\n",
+            "            sum(itertools.starmap(operator.mul, zip(p, q, strict=True)))\n",
+            "\n",
+            "        For float and mixed int/float inputs, the intermediate products\n",
+            "        and sums are computed with extended precision.\n",
+            "\n",
+            "    tan(x, /)\n",
+            "        Return the tangent of x (measured in radians).\n",
+            "\n",
+            "    tanh(x, /)\n",
+            "        Return the hyperbolic tangent of x.\n",
+            "\n",
+            "    trunc(x, /)\n",
+            "        Truncates the Real x to the nearest Integral toward 0.\n",
+            "\n",
+            "        Uses the __trunc__ magic method.\n",
+            "\n",
+            "    ulp(x, /)\n",
+            "        Return the value of the least significant bit of the float x.\n",
+            "\n",
+            "DATA\n",
+            "    e = 2.718281828459045\n",
+            "    inf = inf\n",
+            "    nan = nan\n",
+            "    pi = 3.141592653589793\n",
+            "    tau = 6.283185307179586\n",
+            "\n",
+            "FILE\n",
+            "    (built-in)\n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "11315408",
+        "outputId": "fd01cb95-c921-40e6-fd96-4dce2bd25afa"
+      },
+      "source": [
+        "import cmath\n",
+        "help(cmath)"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Help on built-in module cmath:\n",
+            "\n",
+            "NAME\n",
+            "    cmath\n",
+            "\n",
+            "DESCRIPTION\n",
+            "    This module provides access to mathematical functions for complex\n",
+            "    numbers.\n",
+            "\n",
+            "FUNCTIONS\n",
+            "    acos(z, /)\n",
+            "        Return the arc cosine of z.\n",
+            "\n",
+            "    acosh(z, /)\n",
+            "        Return the inverse hyperbolic cosine of z.\n",
+            "\n",
+            "    asin(z, /)\n",
+            "        Return the arc sine of z.\n",
+            "\n",
+            "    asinh(z, /)\n",
+            "        Return the inverse hyperbolic sine of z.\n",
+            "\n",
+            "    atan(z, /)\n",
+            "        Return the arc tangent of z.\n",
+            "\n",
+            "    atanh(z, /)\n",
+            "        Return the inverse hyperbolic tangent of z.\n",
+            "\n",
+            "    cos(z, /)\n",
+            "        Return the cosine of z.\n",
+            "\n",
+            "    cosh(z, /)\n",
+            "        Return the hyperbolic cosine of z.\n",
+            "\n",
+            "    exp(z, /)\n",
+            "        Return the exponential value e**z.\n",
+            "\n",
+            "    isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)\n",
+            "        Determine whether two complex numbers are close in value.\n",
+            "\n",
+            "          rel_tol\n",
+            "            maximum difference for being considered \"close\", relative to the\n",
+            "            magnitude of the input values\n",
+            "          abs_tol\n",
+            "            maximum difference for being considered \"close\", regardless of the\n",
+            "            magnitude of the input values\n",
+            "\n",
+            "        Return True if a is close in value to b, and False otherwise.\n",
+            "\n",
+            "        For the values to be considered close, the difference between them must be\n",
+            "        smaller than at least one of the tolerances.\n",
+            "\n",
+            "        -inf, inf and NaN behave similarly to the IEEE 754 Standard. That is, NaN is\n",
+            "        not close to anything, even itself. inf and -inf are only close to themselves.\n",
+            "\n",
+            "    isfinite(z, /)\n",
+            "        Return True if both the real and imaginary parts of z are finite, else False.\n",
+            "\n",
+            "    isinf(z, /)\n",
+            "        Checks if the real or imaginary part of z is infinite.\n",
+            "\n",
+            "    isnan(z, /)\n",
+            "        Checks if the real or imaginary part of z not a number (NaN).\n",
+            "\n",
+            "    log(...)\n",
+            "        log(z[, base]) -> the logarithm of z to the given base.\n",
+            "\n",
+            "        If the base is not specified, returns the natural logarithm (base e) of z.\n",
+            "\n",
+            "    log10(z, /)\n",
+            "        Return the base-10 logarithm of z.\n",
+            "\n",
+            "    phase(z, /)\n",
+            "        Return argument, also known as the phase angle, of a complex.\n",
+            "\n",
+            "    polar(z, /)\n",
+            "        Convert a complex from rectangular coordinates to polar coordinates.\n",
+            "\n",
+            "        r is the distance from 0 and phi the phase angle.\n",
+            "\n",
+            "    rect(r, phi, /)\n",
+            "        Convert from polar coordinates to rectangular coordinates.\n",
+            "\n",
+            "    sin(z, /)\n",
+            "        Return the sine of z.\n",
+            "\n",
+            "    sinh(z, /)\n",
+            "        Return the hyperbolic sine of z.\n",
+            "\n",
+            "    sqrt(z, /)\n",
+            "        Return the square root of z.\n",
+            "\n",
+            "    tan(z, /)\n",
+            "        Return the tangent of z.\n",
+            "\n",
+            "    tanh(z, /)\n",
+            "        Return the hyperbolic tangent of z.\n",
+            "\n",
+            "DATA\n",
+            "    e = 2.718281828459045\n",
+            "    inf = inf\n",
+            "    infj = infj\n",
+            "    nan = nan\n",
+            "    nanj = nanj\n",
+            "    pi = 3.141592653589793\n",
+            "    tau = 6.283185307179586\n",
+            "\n",
+            "FILE\n",
+            "    (built-in)\n",
+            "\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "c9320a8d"
+      },
+      "source": [
+        "O módulo `cmath` fornece funções matemáticas para números complexos, como logaritmos, funções trigonométricas e exponenciais, que funcionam com valores complexos."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## **1.3. Tipagem Dinâmica**"
+      ],
+      "metadata": {
+        "id": "oDzunk_Ro2FR"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "type(fruta)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_BnFoyE8o-DS",
+        "outputId": "6ad27299-1527-4852-e94e-a4300f74b4ac"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "str"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "fruta = 7\n",
+        "type(fruta)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Ev4hyYzrhPnV",
+        "outputId": "ada42f0d-90a5-4f13-e1d5-0c738d92277d"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "int"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##**1.4. Brincando com números**"
+      ],
+      "metadata": {
+        "id": "O7DGv--Gt48t"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Definição de variáveis\n",
+        "x = 3\n",
+        "y = 2.3\n",
+        "\n",
+        "# Multiplicação\n",
+        "z = x * y\n",
+        "print(z)  # Saída esperada: 6.8999999999999995\n",
+        "\n",
+        "# Exibindo valores formatados\n",
+        "print(f\"E agora? Como eu imprimo aquele valor aqui? Fácil: {z:.5f}\")\n",
+        "\n",
+        "# Testando diferentes formatos de saída\n",
+        "z1 = x * y\n",
+        "print(f\"E agora? Como eu imprimo aquele valor aqui? Fácil: {z1:.20f}\")\n",
+        "\n",
+        "z2 = x * y\n",
+        "print(f\"E agora? Como eu imprimo aquele valor aqui? Fácil: {z2:.2f}\")\n",
+        "\n",
+        "# Exibição com formatação de múltiplas variáveis\n",
+        "print(\"x = {:.2f}, y = {:.2f}, x * y = {:.2f}\".format(x, y, z))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WSZmnk_Ht_Zc",
+        "outputId": "a944d691-5a67-413e-cf2d-723332c30c12"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "6.8999999999999995\n",
+            "E agora? Como eu imprimo aquele valor aqui? Fácil: 6.90000\n",
+            "E agora? Como eu imprimo aquele valor aqui? Fácil: 6.89999999999999946709\n",
+            "E agora? Como eu imprimo aquele valor aqui? Fácil: 6.90\n",
+            "x = 3.00, y = 2.30, x * y = 6.90\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.5. Operação Menos Simples**\n"
+      ],
+      "metadata": {
+        "id": "OFKCGXfH2b87"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import math\n",
+        "\n",
+        "# Leitura de dois números e uma operação\n",
+        "num1 = float(input(\"Digite o primeiro número: \"))\n",
+        "num2 = float(input(\"Digite o segundo número: \"))\n",
+        "operacao = input(\"Digite a operação (+, -, *, /): \")\n",
+        "\n",
+        "# Realizando a operação escolhida\n",
+        "if operacao == '+':\n",
+        "    resultado = num1 + num2\n",
+        "elif operacao == '-':\n",
+        "    resultado = num1 - num2\n",
+        "elif operacao == '*':\n",
+        "    resultado = num1 * num2\n",
+        "elif operacao == '/':\n",
+        "    if num2 != 0:\n",
+        "        resultado = num1 / num2\n",
+        "    else:\n",
+        "        resultado = \"Erro: divisão por zero\"\n",
+        "else:\n",
+        "    resultado = \"Operação inválida\"\n",
+        "\n",
+        "print(f\"Resultado: {resultado}\")\n",
+        "\n",
+        "# Cálculo do perímetro do círculo\n",
+        "raio = float(input(\"Digite o raio do círculo: \"))\n",
+        "perimetro = 2 * math.pi * raio\n",
+        "print(f\"O perímetro do círculo é: {perimetro:.2f}\")\n",
+        "\n",
+        "# Cálculo do fatorial\n",
+        "num_fatorial = int(input(\"Digite um número para calcular o fatorial: \"))\n",
+        "\n",
+        "if num_fatorial < 0:\n",
+        "    print(\"Erro: não é possível calcular o fatorial de um número negativo.\")\n",
+        "else:\n",
+        "    fatorial = math.factorial(num_fatorial)\n",
+        "    print(f\"O fatorial de {num_fatorial} é {fatorial}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WVeagGQH2Lf8",
+        "outputId": "85253f6c-df7b-42b6-813c-3154b654ca86"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Digite o primeiro número: 2\n",
+            "Digite o segundo número: 6\n",
+            "Digite a operação (+, -, *, /): *\n",
+            "Resultado: 12.0\n",
+            "Digite o raio do círculo: 56\n",
+            "O perímetro do círculo é: 351.86\n",
+            "Digite um número para calcular o fatorial: 99\n",
+            "O fatorial de 99 é 933262154439441526816992388562667004907159682643816214685929638952175999932299156089414639761565182862536979208272237582511852109168640000000000000000000000\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.6. Resolvendo Problemas**"
+      ],
+      "metadata": {
+        "id": "-WueqigE826T"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "        x = 10  # valor inteiro\n",
+        "        y = 20  # valor inteiro\n",
+        "        if isinstance(x, int) and isinstance(y, int):\n",
+        "            op = x + y\n",
+        "            print(f\"x + y = {op}\")\n",
+        "        else:\n",
+        "            print(\"x e y devem ser inteiros!\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SsEogJVs9EYC",
+        "outputId": "923bc1c5-01ad-4d66-d4dc-23daab7c62b8"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "x + y = 30\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.7. Formatando Variáveis em Python**"
+      ],
+      "metadata": {
+        "id": "JOnipHLt-sRD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Testando os comandos mencionados\n",
+        "\n",
+        "# Definindo as variáveis\n",
+        "x = \"12345\"  # uma string numérica\n",
+        "y = \"abcde\"  # uma string alfabética\n",
+        "op = x + y   # operação de soma entre as strings\n",
+        "\n",
+        "# Testando os comandos\n",
+        "print(f\"x.isnumeric(): {x.isnumeric()}\")\n",
+        "print(f\"y.isnumeric(): {y.isnumeric()}\")\n",
+        "print(f\"x.isdecimal(): {x.isdecimal()}\")\n",
+        "print(f\"y.isdecimal(): {y.isdecimal()}\")\n",
+        "print(f\"x.isalpha(): {x.isalpha()}\")\n",
+        "print(f\"y.isalpha(): {y.isalpha()}\")\n",
+        "print(f\"len(op): {len(op)}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MZUKLO1r-ypZ",
+        "outputId": "fd5cf423-b6a7-4cbb-a4b7-7337c86f8288"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "x.isnumeric(): True\n",
+            "y.isnumeric(): False\n",
+            "x.isdecimal(): True\n",
+            "y.isdecimal(): False\n",
+            "x.isalpha(): False\n",
+            "y.isalpha(): True\n",
+            "len(op): 10\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **2.Precisão Numérica**"
+      ],
+      "metadata": {
+        "id": "6bpIa6SPFxYS"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Cálculo do perímetro de um círculo\n",
+        "\n",
+        "# Solicita o raio ao usuário\n",
+        "r = input(\"Digite o raio: \")\n",
+        "\n",
+        "# Verifica se o valor informado é um número válido\n",
+        "try:\n",
+        "    r = float(r)  # Converte o valor para float\n",
+        "    # Cálculo do perímetro utilizando valor aproximado de pi\n",
+        "    print(2 * r * 3.14)\n",
+        "\n",
+        "    # Utilizando maior precisão para o valor de pi\n",
+        "    print(2 * r * 3.1415)\n",
+        "\n",
+        "    # Utilizando o módulo math para obter pi com precisão\n",
+        "    import math\n",
+        "    print(2 * r * math.pi)\n",
+        "\n",
+        "except ValueError:\n",
+        "    print(\"Por favor, insira um número válido para o raio.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "quHolKUzF2Rh",
+        "outputId": "9205bb54-d848-4048-83bd-b0826a08b718"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Digite o raio: 9\n",
+            "56.52\n",
+            "56.547000000000004\n",
+            "56.548667764616276\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# ***Testes***"
+      ],
+      "metadata": {
+        "id": "BEZPkb3cbeQw"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def calcular(x, y, op):\n",
+        "    # Verifica se x e y são numéricos\n",
+        "    try:\n",
+        "        x = float(x)\n",
+        "        y = float(y)\n",
+        "    except ValueError:\n",
+        "        return \"Erro: x e y devem ser valores numéricos.\"\n",
+        "\n",
+        "    # Verifica se a operação é válida\n",
+        "    operacoes_validas = {\"+\", \"-\", \"*\", \"/\"}\n",
+        "    if op not in operacoes_validas:\n",
+        "        return \"Erro: operação inválida. Use +, -, * ou /.\"\n",
+        "\n",
+        "    # Realiza a operação\n",
+        "    if op == \"+\":\n",
+        "        return x + y\n",
+        "    elif op == \"-\":\n",
+        "        return x - y\n",
+        "    elif op == \"*\":\n",
+        "        return x * y\n",
+        "    elif op == \"/\":\n",
+        "        if y == 0:\n",
+        "            return \"Erro: divisão por zero.\"\n",
+        "        return x / y\n",
+        "\n",
+        "# Exemplo de uso:\n",
+        "x = input(\"Digite x: \")\n",
+        "y = input(\"Digite y: \")\n",
+        "op = input(\"Digite a operação (+, -, *, /): \")\n",
+        "\n",
+        "resultado = calcular(x, y, op)\n",
+        "print(resultado)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RJy4-yRSbg0P",
+        "outputId": "0cf8ce4a-4180-471d-e10e-6117f3a0a739"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Digite x: 56\n",
+            "Digite y: 23\n",
+            "Digite a operação (+, -, *, /): +\n",
+            "79.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Operadores Lógicos**\n"
+      ],
+      "metadata": {
+        "id": "mR2pX24weno4"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "idade = 20\n",
+        "possui_carteira = True\n",
+        "\n",
+        "if idade >= 18 and possui_carteira:\n",
+        "    print(\"Pode dirigir\")\n",
+        "else:\n",
+        "    print(\"Não pode dirigir\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VdZx3gAXeuPO",
+        "outputId": "958b1424-7a15-410f-9c41-659993e825aa"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Pode dirigir\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
