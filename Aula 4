@@ -1,0 +1,271 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOajYebFgTI5NBsRIuMOS77",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%204\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1. Tarefas Iniciais: Definir Variáveis, Realizar Impressões e Operações Básicas**"
+      ],
+      "metadata": {
+        "id": "hGmQ-BcZNv2K"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Definindo variáveis\n",
+        "a = 5               # Variável do tipo inteiro\n",
+        "b = 3.2             # Variável do tipo float\n",
+        "nome = \"João\"       # Variável do tipo string\n",
+        "\n",
+        "# Realizando operações básicas\n",
+        "soma = a + b        # Soma de um inteiro e um float\n",
+        "subtracao = a - b   # Subtração\n",
+        "multiplicacao = a * b  # Multiplicação\n",
+        "divisao = a / b     # Divisão\n",
+        "\n",
+        "# Realizando impressões\n",
+        "print(f\"Nome: {nome}\")  # Imprime o nome\n",
+        "print(f\"Soma de {a} e {b}: {soma}\")   # Imprime a soma\n",
+        "print(f\"Subtração de {a} e {b}: {subtracao}\")   # Imprime a subtração\n",
+        "print(f\"Multiplicação de {a} e {b}: {multiplicacao}\")  # Imprime a multiplicação\n",
+        "print(f\"Divisão de {a} e {b}: {divisao}\")  # Imprime a divisão\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "g-WyWt-3NUAT",
+        "outputId": "1b7f66ad-c4a8-47db-9bc6-fcfbb1213083"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Nome: João\n",
+            "Soma de 5 e 3.2: 8.2\n",
+            "Subtração de 5 e 3.2: 1.7999999999999998\n",
+            "Multiplicação de 5 e 3.2: 16.0\n",
+            "Divisão de 5 e 3.2: 1.5625\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## **2. Brincando com Números: Definindo Variáveis, Realizando Operações e Tratando Erros**"
+      ],
+      "metadata": {
+        "id": "xGzAYI3NOjsy"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Definindo variáveis numéricas\n",
+        "inteiro = 10         # Tipo int\n",
+        "flutuante = 5.5      # Tipo float\n",
+        "\n",
+        "# Operações matemáticas\n",
+        "soma = inteiro + flutuante\n",
+        "subtracao = inteiro - flutuante\n",
+        "multiplicacao = inteiro * flutuante\n",
+        "divisao = inteiro / flutuante\n",
+        "\n",
+        "# Exibindo os resultados das operações\n",
+        "print(\"Soma:\", soma)\n",
+        "print(\"Subtração:\", subtracao)\n",
+        "print(\"Multiplicação:\", multiplicacao)\n",
+        "print(\"Divisão:\", divisao)\n",
+        "\n",
+        "# Tratando erro de divisão por zero\n",
+        "try:\n",
+        "    divisao_por_zero = inteiro / 0\n",
+        "except ZeroDivisionError:\n",
+        "    print(\"Erro: Tentativa de divisão por zero!\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6kjvldrXOrIy",
+        "outputId": "b178e2ff-967e-4490-d7ce-8817b0e58eed"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Soma: 15.5\n",
+            "Subtração: 4.5\n",
+            "Multiplicação: 55.0\n",
+            "Divisão: 1.8181818181818181\n",
+            "Erro: Tentativa de divisão por zero!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "*   Definindo variáveis: No início, são definidas duas variáveis, uma do tipo int(inteiro) e outra do tipo float (flutuante).\n",
+        "*   Operações matemáticas: O código realiza quatro operações matemáticas básicas entre essas variáveis: soma, subtração, multiplicação e divisão.\n",
+        "*   Impressão dos resultados: O resultado de cada operação é exibido utilizando a função print().\n",
+        "*   Tratamento de erro: Para a operação de divisão, é aplicado um bloco try-except para tratar erros, como a tentativa de divisão por zero, que geraria uma exceção.\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "Ito3o7giO4s6"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **3. Dicas de Impressão e Cálculos**"
+      ],
+      "metadata": {
+        "id": "C0q7K_cRQOqK"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import math\n",
+        "\n",
+        "# Cálculo do perímetro de um círculo\n",
+        "def calcular_perimetro(circulo_raio):\n",
+        "    perimetro = 2 * math.pi * circulo_raio\n",
+        "    return perimetro\n",
+        "\n",
+        "# Cálculo do fatorial de um número\n",
+        "def calcular_fatorial(numero):\n",
+        "    if numero < 0:\n",
+        "        return \"Número inválido para fatorial\"\n",
+        "    else:\n",
+        "        return math.factorial(numero)\n",
+        "\n",
+        "# Testando as funções\n",
+        "raio = 5\n",
+        "numero = 6\n",
+        "\n",
+        "# Impressão do resultado do perímetro\n",
+        "perimetro = calcular_perimetro(raio)\n",
+        "print(f\"O perímetro do círculo de raio {raio} é: {perimetro:.2f}\")\n",
+        "\n",
+        "# Impressão do resultado do fatorial\n",
+        "fatorial = calcular_fatorial(numero)\n",
+        "print(f\"O fatorial de {numero} é: {fatorial}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qi9okUQbQYti",
+        "outputId": "38ed0dbd-bed8-4a20-debc-e9d85fbd9952"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "O perímetro do círculo de raio 5 é: 31.42\n",
+            "O fatorial de 6 é: 720\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 4. **Verificação e Testes.**"
+      ],
+      "metadata": {
+        "id": "lDGTGNIISGeC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Função para validar se uma entrada é numérica\n",
+        "def validar_entrada(entrada):\n",
+        "    if entrada.isnumeric():\n",
+        "        return True\n",
+        "    else:\n",
+        "        return False\n",
+        "\n",
+        "# Função para calcular a raiz quadrada utilizando o módulo math\n",
+        "def calcular_raiz_quadrada(numero):\n",
+        "    if numero < 0:\n",
+        "        return \"Número negativo não tem raiz quadrada real\"\n",
+        "    else:\n",
+        "        return math.sqrt(numero)\n",
+        "\n",
+        "# Testando a validação de entrada e o cálculo\n",
+        "entrada_usuario = input(\"Digite um número para calcular sua raiz quadrada: \")\n",
+        "\n",
+        "# Verificando se a entrada é numérica\n",
+        "if validar_entrada(entrada_usuario):\n",
+        "    numero = float(entrada_usuario)  # Converte a entrada para número\n",
+        "    resultado = calcular_raiz_quadrada(numero)\n",
+        "    print(f\"A raiz quadrada de {numero} é: {resultado:.2f}\")\n",
+        "else:\n",
+        "    print(\"Entrada inválida! Por favor, insira um número válido.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dYWK2F1PR8Cz",
+        "outputId": "d4c4434c-6036-4535-c087-320f7c4fd38b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Digite um número para calcular sua raiz quadrada: 56\n",
+            "A raiz quadrada de 56.0 é: 7.48\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
