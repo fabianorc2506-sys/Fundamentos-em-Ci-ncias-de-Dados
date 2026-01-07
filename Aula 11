@@ -1,0 +1,83 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN7AcV2q0oTQzmOxuuX7ik4",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%2011\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Tabela de Frequências**"
+      ],
+      "metadata": {
+        "id": "3RoBFw8jjgmd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MRr34_dOjZbV",
+        "outputId": "824288ea-22f0-4c5a-daaa-ec4b55a5d350"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[8.3, 8.3, 8.4, 8.4, 8.5, 8.5, 8.5, 8.6, 8.6, 8.6, 8.7, 8.7, 8.8, 8.8, 9.0, 9.0, 9.1, 9.1, 9.2, 9.5]\n",
+            "n = 20\n",
+            "Min.: 8.3\n",
+            "Mediana: 8.649999999999999\n",
+            "Média: 8.73\n",
+            "Máx.: 9.5\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "magnitudes = [\n",
+        "    9.5, 9.2, 9.1, 9.1, 9.0, 9.0, 8.8, 8.8, 8.7, 8.7,\n",
+        "    8.6, 8.6, 8.6, 8.5, 8.5, 8.5, 8.4, 8.4, 8.3, 8.3\n",
+        "]\n",
+        "\n",
+        "# Ordenar a amostra\n",
+        "ordenada = sorted(magnitudes)\n",
+        "print(ordenada)\n",
+        "\n",
+        "# Estatísticas descritivas\n",
+        "print(\"n =\", len(magnitudes))\n",
+        "print(\"Min.:\", min(magnitudes))\n",
+        "print(\"Mediana:\", np.median(magnitudes))\n",
+        "print(\"Média:\", round(np.mean(magnitudes), 2))\n",
+        "print(\"Máx.:\", max(magnitudes))"
+      ]
+    }
+  ]
+}
