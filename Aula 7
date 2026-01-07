@@ -1,0 +1,1224 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMa99W0xQBP3jyqtYtHOGW+",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%207\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Aula 7**"
+      ],
+      "metadata": {
+        "id": "8-6pDohXw8gF"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1. Arquivos**"
+      ],
+      "metadata": {
+        "id": "Fo475qZwkDVj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 9,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 73
+        },
+        "id": "s3tVtL4AjUm8",
+        "outputId": "f2b4345f-fbb5-442c-f7d6-c587f07ee509"
+      },
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ],
+            "text/html": [
+              "\n",
+              "     <input type=\"file\" id=\"files-08fcd9a2-3d24-4984-b05b-cf50498c50ee\" name=\"files[]\" multiple disabled\n",
+              "        style=\"border:none\" />\n",
+              "     <output id=\"result-08fcd9a2-3d24-4984-b05b-cf50498c50ee\">\n",
+              "      Upload widget is only available when the cell has been executed in the\n",
+              "      current browser session. Please rerun this cell to enable.\n",
+              "      </output>\n",
+              "      <script>// Copyright 2017 Google LLC\n",
+              "//\n",
+              "// Licensed under the Apache License, Version 2.0 (the \"License\");\n",
+              "// you may not use this file except in compliance with the License.\n",
+              "// You may obtain a copy of the License at\n",
+              "//\n",
+              "//      http://www.apache.org/licenses/LICENSE-2.0\n",
+              "//\n",
+              "// Unless required by applicable law or agreed to in writing, software\n",
+              "// distributed under the License is distributed on an \"AS IS\" BASIS,\n",
+              "// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n",
+              "// See the License for the specific language governing permissions and\n",
+              "// limitations under the License.\n",
+              "\n",
+              "/**\n",
+              " * @fileoverview Helpers for google.colab Python module.\n",
+              " */\n",
+              "(function(scope) {\n",
+              "function span(text, styleAttributes = {}) {\n",
+              "  const element = document.createElement('span');\n",
+              "  element.textContent = text;\n",
+              "  for (const key of Object.keys(styleAttributes)) {\n",
+              "    element.style[key] = styleAttributes[key];\n",
+              "  }\n",
+              "  return element;\n",
+              "}\n",
+              "\n",
+              "// Max number of bytes which will be uploaded at a time.\n",
+              "const MAX_PAYLOAD_SIZE = 100 * 1024;\n",
+              "\n",
+              "function _uploadFiles(inputId, outputId) {\n",
+              "  const steps = uploadFilesStep(inputId, outputId);\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  // Cache steps on the outputElement to make it available for the next call\n",
+              "  // to uploadFilesContinue from Python.\n",
+              "  outputElement.steps = steps;\n",
+              "\n",
+              "  return _uploadFilesContinue(outputId);\n",
+              "}\n",
+              "\n",
+              "// This is roughly an async generator (not supported in the browser yet),\n",
+              "// where there are multiple asynchronous steps and the Python side is going\n",
+              "// to poll for completion of each step.\n",
+              "// This uses a Promise to block the python side on completion of each step,\n",
+              "// then passes the result of the previous step as the input to the next step.\n",
+              "function _uploadFilesContinue(outputId) {\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  const steps = outputElement.steps;\n",
+              "\n",
+              "  const next = steps.next(outputElement.lastPromiseValue);\n",
+              "  return Promise.resolve(next.value.promise).then((value) => {\n",
+              "    // Cache the last promise value to make it available to the next\n",
+              "    // step of the generator.\n",
+              "    outputElement.lastPromiseValue = value;\n",
+              "    return next.value.response;\n",
+              "  });\n",
+              "}\n",
+              "\n",
+              "/**\n",
+              " * Generator function which is called between each async step of the upload\n",
+              " * process.\n",
+              " * @param {string} inputId Element ID of the input file picker element.\n",
+              " * @param {string} outputId Element ID of the output display.\n",
+              " * @return {!Iterable<!Object>} Iterable of next steps.\n",
+              " */\n",
+              "function* uploadFilesStep(inputId, outputId) {\n",
+              "  const inputElement = document.getElementById(inputId);\n",
+              "  inputElement.disabled = false;\n",
+              "\n",
+              "  const outputElement = document.getElementById(outputId);\n",
+              "  outputElement.innerHTML = '';\n",
+              "\n",
+              "  const pickedPromise = new Promise((resolve) => {\n",
+              "    inputElement.addEventListener('change', (e) => {\n",
+              "      resolve(e.target.files);\n",
+              "    });\n",
+              "  });\n",
+              "\n",
+              "  const cancel = document.createElement('button');\n",
+              "  inputElement.parentElement.appendChild(cancel);\n",
+              "  cancel.textContent = 'Cancel upload';\n",
+              "  const cancelPromise = new Promise((resolve) => {\n",
+              "    cancel.onclick = () => {\n",
+              "      resolve(null);\n",
+              "    };\n",
+              "  });\n",
+              "\n",
+              "  // Wait for the user to pick the files.\n",
+              "  const files = yield {\n",
+              "    promise: Promise.race([pickedPromise, cancelPromise]),\n",
+              "    response: {\n",
+              "      action: 'starting',\n",
+              "    }\n",
+              "  };\n",
+              "\n",
+              "  cancel.remove();\n",
+              "\n",
+              "  // Disable the input element since further picks are not allowed.\n",
+              "  inputElement.disabled = true;\n",
+              "\n",
+              "  if (!files) {\n",
+              "    return {\n",
+              "      response: {\n",
+              "        action: 'complete',\n",
+              "      }\n",
+              "    };\n",
+              "  }\n",
+              "\n",
+              "  for (const file of files) {\n",
+              "    const li = document.createElement('li');\n",
+              "    li.append(span(file.name, {fontWeight: 'bold'}));\n",
+              "    li.append(span(\n",
+              "        `(${file.type || 'n/a'}) - ${file.size} bytes, ` +\n",
+              "        `last modified: ${\n",
+              "            file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() :\n",
+              "                                    'n/a'} - `));\n",
+              "    const percent = span('0% done');\n",
+              "    li.appendChild(percent);\n",
+              "\n",
+              "    outputElement.appendChild(li);\n",
+              "\n",
+              "    const fileDataPromise = new Promise((resolve) => {\n",
+              "      const reader = new FileReader();\n",
+              "      reader.onload = (e) => {\n",
+              "        resolve(e.target.result);\n",
+              "      };\n",
+              "      reader.readAsArrayBuffer(file);\n",
+              "    });\n",
+              "    // Wait for the data to be ready.\n",
+              "    let fileData = yield {\n",
+              "      promise: fileDataPromise,\n",
+              "      response: {\n",
+              "        action: 'continue',\n",
+              "      }\n",
+              "    };\n",
+              "\n",
+              "    // Use a chunked sending to avoid message size limits. See b/62115660.\n",
+              "    let position = 0;\n",
+              "    do {\n",
+              "      const length = Math.min(fileData.byteLength - position, MAX_PAYLOAD_SIZE);\n",
+              "      const chunk = new Uint8Array(fileData, position, length);\n",
+              "      position += length;\n",
+              "\n",
+              "      const base64 = btoa(String.fromCharCode.apply(null, chunk));\n",
+              "      yield {\n",
+              "        response: {\n",
+              "          action: 'append',\n",
+              "          file: file.name,\n",
+              "          data: base64,\n",
+              "        },\n",
+              "      };\n",
+              "\n",
+              "      let percentDone = fileData.byteLength === 0 ?\n",
+              "          100 :\n",
+              "          Math.round((position / fileData.byteLength) * 100);\n",
+              "      percent.textContent = `${percentDone}% done`;\n",
+              "\n",
+              "    } while (position < fileData.byteLength);\n",
+              "  }\n",
+              "\n",
+              "  // All done.\n",
+              "  yield {\n",
+              "    response: {\n",
+              "      action: 'complete',\n",
+              "    }\n",
+              "  };\n",
+              "}\n",
+              "\n",
+              "scope.google = scope.google || {};\n",
+              "scope.google.colab = scope.google.colab || {};\n",
+              "scope.google.colab._files = {\n",
+              "  _uploadFiles,\n",
+              "  _uploadFilesContinue,\n",
+              "};\n",
+              "})(self);\n",
+              "</script> "
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Saving resumo_segunda_era.txt to resumo_segunda_era.txt\n"
+          ]
+        }
+      ],
+      "source": [
+        "from google.colab import files\n",
+        "uploaded = files.upload()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.2. Sintaxe Básica de Abertura e Fechamento**"
+      ],
+      "metadata": {
+        "id": "H9ZZ9XGYkOhb"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "f = open('meutxt.txt', 'r')\n",
+        "letra = f.readlines()\n",
+        "print (letra)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SV4OiusakVcL",
+        "outputId": "48eb9b2d-cb7a-41ab-83e5-ffcbd139586e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "['Vai Corinthians!\\n', '\\n', 'O Palmeiras não tem Mundial!']\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Sem o \\n\n",
+        "for verso in letra:\n",
+        "  print(verso.strip())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lyqrRXcmkdTr",
+        "outputId": "993dc06c-305d-4674-faca-27d6561c2001"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Vai Corinthians!\n",
+            "\n",
+            "O Palmeiras não tem Mundial!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for verso in letra:\n",
+        "  print(verso)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XOxATkNqkZe7",
+        "outputId": "719cd047-0da7-4491-c2b7-6d18ee54ded9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Vai Corinthians!\n",
+            "\n",
+            "\n",
+            "\n",
+            "O Palmeiras não tem Mundial!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.3. Leitura Simples**"
+      ],
+      "metadata": {
+        "id": "vI8H411Rkq5r"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Abrindo o arquivo e lendo as linhas\n",
+        "with open('resumo_segunda_era.txt', 'r') as arquivo:\n",
+        "    linhas = arquivo.readlines()\n",
+        "\n",
+        "# Iterando sobre as linhas\n",
+        "for linha in linhas:\n",
+        "    print(linha.strip())  # Exibe cada linha sem a quebra de linha"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "49vUrY2gkwoT",
+        "outputId": "2d22c186-6b89-4f0b-f891-3ff94ed8e383"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Resumo da Segunda Era da Terra Média (baseado na obra de J.R.R. Tolkien):\n",
+            "\n",
+            "A Segunda Era da Terra Média, um período de aproximadamente 3.441 anos,\n",
+            "É marcada pela ascensão e queda de Númenor, a forja dos Anéis de Poder e\n",
+            "O fortalecimento de Sauron. Após a derrota de Morgoth na Primeira Era,\n",
+            "Os elfos, homens e anões buscaram reconstruir suas civilizações.\n",
+            "Os númenorianos, descendentes dos Edain, fundaram um reino próspero em Númenor,\n",
+            "Mas sua busca pela imortalidade levou à queda da ilha devido ao orgulho e à influência de Sauron.\n",
+            "\n",
+            "Durante a era, Sauron enganou os povos livres ao criar os Anéis de Poder,\n",
+            "com a intenção de dominá-los por meio de Um Anel. No entanto,\n",
+            "os Elfos perceberam a trama e resistiram, o que resultou em um conflito que\n",
+            "culminou na Última Aliança entre Elfos e Homens.\n",
+            "A era terminou com a derrota temporária de Sauron e a perda do Um Anel,\n",
+            "Selando um período de esperança e incerteza para a Terra Média.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.4. Leitura de Arquivo com readline()**"
+      ],
+      "metadata": {
+        "id": "fJmQ9Xhd6ynt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "print(os.path.exists('meu_exemplo.txt'))  # Retorna True se o arquivo existe\n",
+        "\n",
+        "# Criando e escrevendo no arquivo\n",
+        "with open('meu_exemplo.txt', 'w') as f:\n",
+        "    f.write(\"Primeira linha\\nSegunda linha\\nTerceira linha\\n\")\n",
+        "\n",
+        "# Lendo uma linha por vez corretamente\n",
+        "with open('meu_exemplo.txt', 'r') as f:\n",
+        "    linha1 = f.readline().strip()  # Remove espaços e quebras de linha extras\n",
+        "    linha2 = f.readline().strip()\n",
+        "    linha3 = f.readline().strip()\n",
+        "\n",
+        "print(\"Linha 1:\", linha1)\n",
+        "print(\"Linha 2:\", linha2)\n",
+        "print(\"Linha 3:\", linha3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2vRkn3IWkxZL",
+        "outputId": "3fb325bf-3704-4d14-9741-56262be0745f"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "False\n",
+            "Linha 1: Primeira linha\n",
+            "Linha 2: Segunda linha\n",
+            "Linha 3: Terceira linha\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.5. Escrita em Arquivos**"
+      ],
+      "metadata": {
+        "id": "6r4sYfkV6_90"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "try:\n",
+        "    f = open('construcao.txt', 'a')\n",
+        "\n",
+        "    while True:\n",
+        "        linha = input()\n",
+        "        if linha == '':\n",
+        "            break\n",
+        "        f.write(linha + \"\\n\")\n",
+        "\n",
+        "    f.close()\n",
+        "\n",
+        "except FileNotFoundError:\n",
+        "    print(\"Arquivo não existe, criando um!\")\n",
+        "    f = open('construcao.txt', 'w')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZPUqlRvf7HHk",
+        "outputId": "b8ccae80-cdd8-403c-c014-9cc4610ce903"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "oi\n",
+            "Como você está?\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Multiplas linhas"
+      ],
+      "metadata": {
+        "id": "f1Y2SZjz_N2d"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Escrevendo múltiplas linhas no arquivo\n",
+        "linhas = ['Linha 1\\n', 'Linha 2\\n', 'Linha 3\\n']\n",
+        "\n",
+        "with open('exemplo.txt', 'w') as arquivo:\n",
+        "    arquivo.writelines(linhas)\n",
+        "\n",
+        "print(\"Linhas escritas com sucesso!\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nxcRc5JS_QQM",
+        "outputId": "9557d4f8-d0a6-4b1b-e1e5-a3ba27c7c465"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Linhas escritas com sucesso!\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Numpy**"
+      ],
+      "metadata": {
+        "id": "f49csI9e_l90"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Importando a biblioteca NumPy\n",
+        "import numpy as np  # convenção\n",
+        "\n",
+        "# Criando arrays de inteiros e floats\n",
+        "integers = np.array([[1, 2, 3], [4, 5, 6]])\n",
+        "floats = np.array([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])\n",
+        "\n",
+        "# Verificando o tipo de dados dos arrays\n",
+        "print(type(integers))  # Tipo de integers\n",
+        "print(integers.dtype)   # Tipo de dados dos elementos de integers\n",
+        "print(floats.dtype)     # Tipo de dados dos elementos de floats\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rBsvgW0b_pDM",
+        "outputId": "dd1f4769-f2e5-43e1-829d-f9a2d0a3314c"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<class 'numpy.ndarray'>\n",
+            "int64\n",
+            "float64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array e forçando o tipo para float\n",
+        "floats2 = np.array([[1, 2, 3], [4, 5, 6]], dtype=float)\n",
+        "\n",
+        "# Verificando o tipo de dados\n",
+        "print(floats2.dtype)  # Mostra o tipo dos elementos do array\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(floats2)  # Exibe o array com os valores convertidos para float"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "JsdJMafQMZY-",
+        "outputId": "f535ccd8-3bc3-4972-bfde-6b9ff28cade2"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "float64\n",
+            "[[1. 2. 3.]\n",
+            " [4. 5. 6.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Explorando alguns comandos**"
+      ],
+      "metadata": {
+        "id": "3tVLzmljPCB8"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Verificar a Dimensão (ndim)"
+      ],
+      "metadata": {
+        "id": "qQf04vdkPGak"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando arrays de diferentes dimensões. Olhar com mais cuidado!!!!!\n",
+        "array1 = np.array([1, 2, 3])          # 1D\n",
+        "array2 = np.array([[1, 2], [3, 4]])   # 2D\n",
+        "array3 = np.array([[[1], [2]], [[3], [4]]])  # 3D\n",
+        "\n",
+        "# Verificando a dimensão (ndim)\n",
+        "print(array1)\n",
+        "print(array1.ndim)  # 1\n",
+        "print(array2)\n",
+        "print(array2.ndim)  # 2\n",
+        "print(array3)\n",
+        "print(array3.ndim)  # 3\n",
+        "print(np.shape(array3))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "e_AaprG6PH5t",
+        "outputId": "3bec5097-ad45-4c39-ada7-209a55a6d65b"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1 2 3]\n",
+            "1\n",
+            "[[1 2]\n",
+            " [3 4]]\n",
+            "2\n",
+            "[[[1]\n",
+            "  [2]]\n",
+            "\n",
+            " [[3]\n",
+            "  [4]]]\n",
+            "3\n",
+            "(2, 2, 1)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando size"
+      ],
+      "metadata": {
+        "id": "PA9Mw5rlQF8M"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array 2D\n",
+        "array = np.array([[1, 2, 3], [4, 5, 6]])\n",
+        "\n",
+        "# Verificando o número de elementos no array\n",
+        "print(array.size)  # 6"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YNMhZRm-QMKk",
+        "outputId": "9d4e63e3-5ea0-4692-9c74-228bf921c063"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "6\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando shape"
+      ],
+      "metadata": {
+        "id": "XhQxbditQ_Sk"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array 2D\n",
+        "array = np.array([[1, 2, 3], [4, 5, 6]])\n",
+        "\n",
+        "# Verificando a forma do array\n",
+        "print(array.shape)  # (2, 3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5z4KpDlIRAc0",
+        "outputId": "b5550c69-3cc3-4650-a11f-e7d806242753"
+      },
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "(2, 3)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando arange"
+      ],
+      "metadata": {
+        "id": "xDZ3MrfLRg9U"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Usando arange para criar um array\n",
+        "array = np.arange(0, 10, 2)\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array)  # [0 2 4 6 8]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mQz92DxxRkVE",
+        "outputId": "d215e5a8-0f97-4780-cf20-2adc02a70e1a"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[0 2 4 6 8]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando ones(shape)"
+      ],
+      "metadata": {
+        "id": "uovD5aTGSVO-"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array de 1s\n",
+        "array = np.ones((2, 3))\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "2BoH6ySJSbnl",
+        "outputId": "dbbe9823-1001-408d-f0ec-ac968a58623e"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[1. 1. 1.]\n",
+            " [1. 1. 1.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando zeros(shape)"
+      ],
+      "metadata": {
+        "id": "OxB6KMEpTKJt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array de 0s\n",
+        "array = np.zeros((2, 3))\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "I2PVoWRoTL99",
+        "outputId": "c60750ac-d692-4dac-c869-28abe97b4665"
+      },
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0. 0. 0.]\n",
+            " [0. 0. 0.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando empty(shape)"
+      ],
+      "metadata": {
+        "id": "g0VGKod2T488"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array vazio (não inicializado)\n",
+        "array_1 = np.empty((2, 3))\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array_1)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "K8MhOt84T62V",
+        "outputId": "554ac949-6300-4724-ed1a-a83df3ca3e12"
+      },
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0. 0. 0.]\n",
+            " [0. 0. 0.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        " Comando full(shape, fill_value)"
+      ],
+      "metadata": {
+        "id": "Qz4oRSS5UxMs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array preenchido com um valor específico\n",
+        "array = np.full((2, 3), 25)\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array)\n",
+        "\n",
+        "# Criando um array preenchido com um valor específico\n",
+        "array_2 = np.full((5, 5), \"Corinthians\")\n",
+        "print(array_2)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1LQIjLZEUzQ9",
+        "outputId": "3418cafb-ea3d-41cf-88ee-508a74d1b788"
+      },
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[25 25 25]\n",
+            " [25 25 25]]\n",
+            "[['Corinthians' 'Corinthians' 'Corinthians' 'Corinthians' 'Corinthians']\n",
+            " ['Corinthians' 'Corinthians' 'Corinthians' 'Corinthians' 'Corinthians']\n",
+            " ['Corinthians' 'Corinthians' 'Corinthians' 'Corinthians' 'Corinthians']\n",
+            " ['Corinthians' 'Corinthians' 'Corinthians' 'Corinthians' 'Corinthians']\n",
+            " ['Corinthians' 'Corinthians' 'Corinthians' 'Corinthians' 'Corinthians']]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Comando identity(n)"
+      ],
+      "metadata": {
+        "id": "dO9ZhpT9VqNM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando uma matriz identidade de ordem 3\n",
+        "array = np.identity(3)\n",
+        "\n",
+        "# Exibindo o array\n",
+        "print(array)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jTegrRqPV_0k",
+        "outputId": "133cd006-7d6d-43b8-98f8-94ac52c1ba0e"
+      },
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[1. 0. 0.]\n",
+            " [0. 1. 0.]\n",
+            " [0. 0. 1.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **2.5. Outra forma de inicializar matrizes**"
+      ],
+      "metadata": {
+        "id": "x5Bcsy8ZZfAe"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array 1D\n",
+        "array = np.arange(12)\n",
+        "print(array)\n",
+        "\n",
+        "# Alterando a forma do array para 3x4\n",
+        "reshaped_array = array.reshape(3, 4)\n",
+        "\n",
+        "# Exibindo o array reshaped\n",
+        "print(reshaped_array)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ERHjRBPZZjl0",
+        "outputId": "48754596-e908-4579-eda3-df199815ff1d"
+      },
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[ 0  1  2  3  4  5  6  7  8  9 10 11]\n",
+            "[[ 0  1  2  3]\n",
+            " [ 4  5  6  7]\n",
+            " [ 8  9 10 11]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Criando um array com 6 valores igualmente espaçados entre 0 e 10\n",
+        "array = np.linspace(0, 10, 6)\n",
+        "\n",
+        "# Alterando a forma do array para 2x3\n",
+        "reshaped_array = array.reshape(2, 3)\n",
+        "\n",
+        "# Exibindo o array reshaped\n",
+        "print(reshaped_array)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZD8Ubp6WbuwF",
+        "outputId": "be5539df-c072-48c4-cdf4-f705be4f0e2e"
+      },
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[ 0.  2.  4.]\n",
+            " [ 6.  8. 10.]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **2.6. Inicializar matrizes aleatoriamente**"
+      ],
+      "metadata": {
+        "id": "6uNgUvrMfj1V"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Gerando uma matriz 3x3 de números aleatórios entre 0 e 1\n",
+        "matriz_random = np.random.random((3, 3))\n",
+        "\n",
+        "print(matriz_random)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LIl883c4fmlk",
+        "outputId": "662de41f-4fa7-4437-bfe8-1307131c1c59"
+      },
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0.13851126 0.42395644 0.1469464 ]\n",
+            " [0.54016655 0.41510495 0.55519502]\n",
+            " [0.90482276 0.18603589 0.63098159]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Gerando uma matriz 3x3 de números inteiros aleatórios entre 0 e 10\n",
+        "matriz_randint = np.random.randint(0, 10, (3, 3))\n",
+        "\n",
+        "print(matriz_randint)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Jbdc_cjxhyy9",
+        "outputId": "e917eece-1fe3-4be1-bb51-708eccc998bf"
+      },
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[3 3 1]\n",
+            " [0 0 1]\n",
+            " [3 2 6]]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **2.7. Acesso a elementos da matriz**"
+      ],
+      "metadata": {
+        "id": "s_PODXotj7Wd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Criando uma matriz 3x3\n",
+        "matriz = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])\n",
+        "\n",
+        "# Acessando o elemento da linha 1, coluna 2\n",
+        "elemento = matriz[1, 2]  # Retorna 6\n",
+        "\n",
+        "# Acessando a primeira linha inteira\n",
+        "linha = matriz[0, :]  # Retorna [1, 2, 3]\n",
+        "\n",
+        "# Acessando a primeira coluna inteira\n",
+        "coluna = matriz[:, 0]  # Retorna [1, 4, 7]\n",
+        "\n",
+        "print(\"Elemento:\", elemento)\n",
+        "print(\"Linha:\", linha)\n",
+        "print(\"Coluna:\", coluna)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NwutHFx2kAHF",
+        "outputId": "b3341d15-cdc8-48b5-b7ff-9043ca7b9e64"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Elemento: 6\n",
+            "Linha: [1 2 3]\n",
+            "Coluna: [1 4 7]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "# Criando uma matriz 3x3\n",
+        "matriz = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])\n",
+        "\n",
+        "# Percorrendo a matriz linha por linha\n",
+        "for linha in matriz:\n",
+        "    print(\"Linha:\", linha)\n",
+        "\n",
+        "# Percorrendo a matriz elemento por elemento\n",
+        "for elemento in np.nditer(matriz):\n",
+        "    print(\"Elemento:\", elemento)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NRraIru_kxBV",
+        "outputId": "5380112e-95d0-461c-92ba-168416fe48ae"
+      },
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Linha: [1 2 3]\n",
+            "Linha: [4 5 6]\n",
+            "Linha: [7 8 9]\n",
+            "Elemento: 1\n",
+            "Elemento: 2\n",
+            "Elemento: 3\n",
+            "Elemento: 4\n",
+            "Elemento: 5\n",
+            "Elemento: 6\n",
+            "Elemento: 7\n",
+            "Elemento: 8\n",
+            "Elemento: 9\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
