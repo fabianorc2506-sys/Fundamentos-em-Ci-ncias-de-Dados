@@ -1,0 +1,1317 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPXFjjPsaHVT0TLQQfvGelp",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%2018\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Preparando Bases de Dados: Limpeza, Adequação e Pré-processamento**"
+      ],
+      "metadata": {
+        "id": "7bfgr2juEvSJ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.1. Introdução**"
+      ],
+      "metadata": {
+        "id": "M8uPZk3IE2lw"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "plVJxTdBAWK4",
+        "outputId": "2fdbbac7-3849-4656-96f2-b76a495509e9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "     aluno  nota_prova  frequencia\n",
+            "0      Ana         8.5          92\n",
+            "1    Bruno         NaN          85\n",
+            "2     None         7.0          88\n",
+            "3  Daniela         6.0          69\n",
+            "4  Eduardo         NaN          95\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.DataFrame({\"aluno\": [\"Ana\", \"Bruno\", None, \"Daniela\", \"Eduardo\"], \"nota_prova\": [8.5, None, 7.0, 6.0, None], \"frequencia\": [92, 85, 88, 69, 95]})\n",
+        "print(df)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.isnull().mean(axis=0)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 178
+        },
+        "id": "9835rP4iFrzB",
+        "outputId": "46c0dfbd-1fd6-463b-f331-497f991eee1d"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "aluno         0.2\n",
+              "nota_prova    0.4\n",
+              "frequencia    0.0\n",
+              "dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>aluno</th>\n",
+              "      <td>0.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>nota_prova</th>\n",
+              "      <td>0.4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>frequencia</th>\n",
+              "      <td>0.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 2
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.2. Descartando Dados Ausentes**"
+      ],
+      "metadata": {
+        "id": "D4ns1bU80_Di"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.dropna()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 112
+        },
+        "id": "X8iTyZgi1Bxg",
+        "outputId": "a77adb91-0e53-4663-ae7e-22d8d9b9a12b"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     aluno  nota_prova  frequencia\n",
+              "0      Ana         8.5          92\n",
+              "3  Daniela         6.0          69"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-43f19664-e959-4ef6-adb6-b96db06094d4\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>aluno</th>\n",
+              "      <th>nota_prova</th>\n",
+              "      <th>frequencia</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Ana</td>\n",
+              "      <td>8.5</td>\n",
+              "      <td>92</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Daniela</td>\n",
+              "      <td>6.0</td>\n",
+              "      <td>69</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-43f19664-e959-4ef6-adb6-b96db06094d4')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-43f19664-e959-4ef6-adb6-b96db06094d4 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-43f19664-e959-4ef6-adb6-b96db06094d4');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 2,\n  \"fields\": [\n    {\n      \"column\": \"aluno\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 2,\n        \"samples\": [\n          \"Daniela\",\n          \"Ana\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"nota_prova\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1.7677669529663689,\n        \"min\": 6.0,\n        \"max\": 8.5,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          6.0,\n          8.5\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"frequencia\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 16,\n        \"min\": 69,\n        \"max\": 92,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          69,\n          92\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 3
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.drop(columns=['aluno', 'nota_prova'])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "ACqYMnuK3xkx",
+        "outputId": "4ac1cabc-2cd1-4622-8318-010981358de3"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   frequencia\n",
+              "0          92\n",
+              "1          85\n",
+              "2          88\n",
+              "3          69\n",
+              "4          95"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-d0c75278-942e-4e7f-b19e-d0e8934b32f0\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>frequencia</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>92</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>85</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>88</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>69</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>95</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-d0c75278-942e-4e7f-b19e-d0e8934b32f0')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-d0c75278-942e-4e7f-b19e-d0e8934b32f0 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-d0c75278-942e-4e7f-b19e-d0e8934b32f0');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 5,\n  \"fields\": [\n    {\n      \"column\": \"frequencia\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 10,\n        \"min\": 69,\n        \"max\": 95,\n        \"num_unique_values\": 5,\n        \"samples\": [\n          85,\n          95,\n          88\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.dropna(axis = 1)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "egADJQGh8qvS",
+        "outputId": "752a95d2-5d67-4d81-f856-b3c89da0e4ed"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   frequencia\n",
+              "0          92\n",
+              "1          85\n",
+              "2          88\n",
+              "3          69\n",
+              "4          95"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-1ce883b2-a1d7-48be-90b9-0c80024114fd\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>frequencia</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>92</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>85</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>88</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>69</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>95</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-1ce883b2-a1d7-48be-90b9-0c80024114fd')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-1ce883b2-a1d7-48be-90b9-0c80024114fd button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-1ce883b2-a1d7-48be-90b9-0c80024114fd');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 5,\n  \"fields\": [\n    {\n      \"column\": \"frequencia\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 10,\n        \"min\": 69,\n        \"max\": 95,\n        \"num_unique_values\": 5,\n        \"samples\": [\n          85,\n          95,\n          88\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.3. Imputação de Dados**"
+      ],
+      "metadata": {
+        "id": "Bmm9foREIL7k"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "dados = pd.DataFrame({\n",
+        "    'Nome': ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo',\n",
+        "             'Fernanda', 'Gustavo', 'Helena', 'Igor', 'Juliana'],\n",
+        "    'Altura_cm': [162, np.nan, 175, 160, np.nan,\n",
+        "                  168, 180, np.nan, 172, 165],\n",
+        "    'Peso_kg': [55, 72, np.nan, 48, 70,\n",
+        "                62, np.nan, 59, 75, np.nan],\n",
+        "    'Sexo': ['F', 'M', 'M', 'F', np.nan,\n",
+        "             'F', 'M', np.nan, 'M', 'F']\n",
+        "})\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "hSHQ3v2Peoj7",
+        "outputId": "4aac29d8-a0ea-420d-8575-fe08f6ef44ef"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo\n",
+            "0       Ana      162.0     55.0    F\n",
+            "1     Bruno        NaN     72.0    M\n",
+            "2    Carlos      175.0      NaN    M\n",
+            "3   Daniela      160.0     48.0    F\n",
+            "4   Eduardo        NaN     70.0  NaN\n",
+            "5  Fernanda      168.0     62.0    F\n",
+            "6   Gustavo      180.0      NaN    M\n",
+            "7    Helena        NaN     59.0  NaN\n",
+            "8      Igor      172.0     75.0    M\n",
+            "9   Juliana      165.0      NaN    F\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# a) Imputação pela MÉDIA para Altura_cm\n",
+        "media_altura = dados['Altura_cm'].mean()\n",
+        "dados['Altura_cm_media'] = dados['Altura_cm'].fillna(media_altura)\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ZwURG9aFwRLj",
+        "outputId": "83da1e7e-8ce4-4c87-d9a7-f2baed3c4334"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo  Altura_cm_media\n",
+            "0       Ana      162.0     55.0    F       162.000000\n",
+            "1     Bruno        NaN     72.0    M       168.857143\n",
+            "2    Carlos      175.0      NaN    M       175.000000\n",
+            "3   Daniela      160.0     48.0    F       160.000000\n",
+            "4   Eduardo        NaN     70.0  NaN       168.857143\n",
+            "5  Fernanda      168.0     62.0    F       168.000000\n",
+            "6   Gustavo      180.0      NaN    M       180.000000\n",
+            "7    Helena        NaN     59.0  NaN       168.857143\n",
+            "8      Igor      172.0     75.0    M       172.000000\n",
+            "9   Juliana      165.0      NaN    F       165.000000\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# b) Imputação pela MEDIANA para Peso_kg\n",
+        "mediana_peso = dados['Peso_kg'].median()\n",
+        "dados['Peso_kg_mediana'] = dados['Peso_kg'].fillna(mediana_peso)\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7xQt3XHfzQeL",
+        "outputId": "65d62db4-948f-42ef-d454-a36ddde4967b"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo  Altura_cm_media  Peso_kg_mediana\n",
+            "0       Ana      162.0     55.0    F       162.000000             55.0\n",
+            "1     Bruno        NaN     72.0    M       168.857143             72.0\n",
+            "2    Carlos      175.0      NaN    M       175.000000             62.0\n",
+            "3   Daniela      160.0     48.0    F       160.000000             48.0\n",
+            "4   Eduardo        NaN     70.0  NaN       168.857143             70.0\n",
+            "5  Fernanda      168.0     62.0    F       168.000000             62.0\n",
+            "6   Gustavo      180.0      NaN    M       180.000000             62.0\n",
+            "7    Helena        NaN     59.0  NaN       168.857143             59.0\n",
+            "8      Igor      172.0     75.0    M       172.000000             75.0\n",
+            "9   Juliana      165.0      NaN    F       165.000000             62.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# c) Imputação pela MODA para Sexo (categórica)\n",
+        "moda_sexo = dados['Sexo'].mode()[0]\n",
+        "dados['Sexo_moda'] = dados['Sexo'].fillna(moda_sexo)\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pmnbboh45_5d",
+        "outputId": "2531e2ce-6a69-4112-e6a3-7c1f1e6bb7ec"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo  Altura_cm_media  Peso_kg_mediana  \\\n",
+            "0       Ana      162.0     55.0    F       162.000000             55.0   \n",
+            "1     Bruno        NaN     72.0    M       168.857143             72.0   \n",
+            "2    Carlos      175.0      NaN    M       175.000000             62.0   \n",
+            "3   Daniela      160.0     48.0    F       160.000000             48.0   \n",
+            "4   Eduardo        NaN     70.0  NaN       168.857143             70.0   \n",
+            "5  Fernanda      168.0     62.0    F       168.000000             62.0   \n",
+            "6   Gustavo      180.0      NaN    M       180.000000             62.0   \n",
+            "7    Helena        NaN     59.0  NaN       168.857143             59.0   \n",
+            "8      Igor      172.0     75.0    M       172.000000             75.0   \n",
+            "9   Juliana      165.0      NaN    F       165.000000             62.0   \n",
+            "\n",
+            "  Sexo_moda  \n",
+            "0         F  \n",
+            "1         M  \n",
+            "2         M  \n",
+            "3         F  \n",
+            "4         F  \n",
+            "5         F  \n",
+            "6         M  \n",
+            "7         F  \n",
+            "8         M  \n",
+            "9         F  \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nDados com imputações:\")\n",
+        "print(dados[['Nome', 'Altura_cm_media', 'Peso_kg_mediana', 'Sexo_moda']])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "J-UkrsgwzQvi",
+        "outputId": "e5dd3c39-7f52-4e1a-bf8f-ab5231c98495"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Dados com imputações:\n",
+            "       Nome  Altura_cm_media  Peso_kg_mediana Sexo_moda\n",
+            "0       Ana       162.000000             55.0         F\n",
+            "1     Bruno       168.857143             72.0         M\n",
+            "2    Carlos       175.000000             62.0         M\n",
+            "3   Daniela       160.000000             48.0         F\n",
+            "4   Eduardo       168.857143             70.0         F\n",
+            "5  Fernanda       168.000000             62.0         F\n",
+            "6   Gustavo       180.000000             62.0         M\n",
+            "7    Helena       168.857143             59.0         F\n",
+            "8      Igor       172.000000             75.0         M\n",
+            "9   Juliana       165.000000             62.0         F\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Exemplo: Imputação via Regressão**"
+      ],
+      "metadata": {
+        "id": "rMNpO3ZGLJwx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "# Criando base com valores faltantes\n",
+        "dados = pd.DataFrame({\n",
+        "    'Nome': ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo',\n",
+        "             'Fernanda', 'Gustavo', 'Helena', 'Igor', 'Juliana'],\n",
+        "    'Altura_cm': [162, np.nan, 175, 160, np.nan,\n",
+        "                  168, 180, np.nan, 172, 165],\n",
+        "    'Peso_kg': [55, 72, np.nan, 48, 70,\n",
+        "                62, np.nan, 59, 75, np.nan],\n",
+        "    'Sexo': ['F', 'M', 'M', 'F', np.nan,\n",
+        "             'F', 'M', np.nan, 'M', 'F']\n",
+        "})\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qP4pb4RZLRU_",
+        "outputId": "e1380b5e-ae1d-4d20-b0df-760147fc8a74"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo\n",
+            "0       Ana      162.0     55.0    F\n",
+            "1     Bruno        NaN     72.0    M\n",
+            "2    Carlos      175.0      NaN    M\n",
+            "3   Daniela      160.0     48.0    F\n",
+            "4   Eduardo        NaN     70.0  NaN\n",
+            "5  Fernanda      168.0     62.0    F\n",
+            "6   Gustavo      180.0      NaN    M\n",
+            "7    Helena        NaN     59.0  NaN\n",
+            "8      Igor      172.0     75.0    M\n",
+            "9   Juliana      165.0      NaN    F\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Separar base com e sem missings em Peso\n",
+        "dados_treino = dados.dropna(subset=['Peso_kg', 'Altura_cm'])  # onde ambos existem\n",
+        "print(dados_treino)\n",
+        "dados_imputar = dados[dados['Peso_kg'].isna() & dados['Altura_cm'].notna()]\n",
+        "print(dados_imputar)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NVbdOGT-MPTI",
+        "outputId": "e2642906-9865-4e3f-9679-a84b57f58a43"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo\n",
+            "0       Ana      162.0     55.0    F\n",
+            "3   Daniela      160.0     48.0    F\n",
+            "5  Fernanda      168.0     62.0    F\n",
+            "8      Igor      172.0     75.0    M\n",
+            "      Nome  Altura_cm  Peso_kg Sexo\n",
+            "2   Carlos      175.0      NaN    M\n",
+            "6  Gustavo      180.0      NaN    M\n",
+            "9  Juliana      165.0      NaN    F\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Ajuste do modelo\n",
+        "modelo = LinearRegression()\n",
+        "modelo.fit(dados_treino[['Altura_cm']], dados_treino['Peso_kg'])\n",
+        "\n",
+        "# Exibindo os coeficientes\n",
+        "print(f\"Coeficiente angular (beta1): {modelo.coef_[0]:.4f}\")\n",
+        "print(f\"Intercepto (beta0): {modelo.intercept_:.4f}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1YbY29SeLtGP",
+        "outputId": "873e8d99-b124-4ec5-e733-b2bc0c1747c6"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Coeficiente angular (beta1): 2.0440\n",
+            "Intercepto (beta0): -278.2747\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Prever os valores faltantes de Peso\n",
+        "dados.loc[dados_imputar.index, 'Peso_kg_regressao'] = modelo.predict(dados_imputar[['Altura_cm']])\n",
+        "\n",
+        "# Mostrar resultado\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NF77OU2iMjy3",
+        "outputId": "435f0206-a40c-4db6-daa1-f124c2ce1bdd"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo  Peso_kg_regressao\n",
+            "0       Ana      162.0     55.0    F                NaN\n",
+            "1     Bruno        NaN     72.0    M                NaN\n",
+            "2    Carlos      175.0      NaN    M          79.417582\n",
+            "3   Daniela      160.0     48.0    F                NaN\n",
+            "4   Eduardo        NaN     70.0  NaN                NaN\n",
+            "5  Fernanda      168.0     62.0    F                NaN\n",
+            "6   Gustavo      180.0      NaN    M          89.637363\n",
+            "7    Helena        NaN     59.0  NaN                NaN\n",
+            "8      Igor      172.0     75.0    M                NaN\n",
+            "9   Juliana      165.0      NaN    F          58.978022\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Exemplo Sala de Aula**"
+      ],
+      "metadata": {
+        "id": "-wXvq8j4HpEn"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "# Criando base com valores faltantes\n",
+        "dados = pd.DataFrame({\n",
+        "    'Nome': ['Ana', 'Bruno', 'Gustavo Henrique', 'Daniel', 'Pedro',\n",
+        "             'Pietro', 'Gustavo Silva', 'Caio', 'Higor', 'Paulo'],\n",
+        "    'Altura_cm': [170, np.nan, 180, 176, np.nan,\n",
+        "                  183, 179, np.nan, 172, 184],\n",
+        "    'calçado': ['38', '39', '42', '40', '44', '43', '42', '40', '39', '43']\n",
+        "})\n",
+        "\n",
+        "# Convertendo a coluna 'calçado' para numérico\n",
+        "dados['calçado'] = dados['calçado'].astype(int)\n",
+        "\n",
+        "print(\"Base original:\")\n",
+        "print(dados)\n",
+        "\n",
+        "# Separar base com e sem missings em Altura_cm\n",
+        "dados_treino = dados.dropna(subset=['calçado', 'Altura_cm'])  # onde ambos existem\n",
+        "print(\"\\nBase para treino (sem missing em Altura_cm):\")\n",
+        "print(dados_treino)\n",
+        "\n",
+        "# Ajuste do modelo\n",
+        "modelo = LinearRegression()\n",
+        "modelo.fit(dados_treino[['calçado']], dados_treino['Altura_cm'])\n",
+        "\n",
+        "# Exibindo os coeficientes\n",
+        "print(f\"\\nCoeficiente angular (beta1): {modelo.coef_[0]:.4f}\")\n",
+        "print(f\"Intercepto (beta0): {modelo.intercept_:.4f}\")\n",
+        "\n",
+        "# Prever os valores faltantes de Altura_cm\n",
+        "faltantes = dados['Altura_cm'].isna()\n",
+        "dados.loc[faltantes, 'Altura_cm'] = modelo.predict(dados.loc[faltantes, ['calçado']])\n",
+        "\n",
+        "# Mostrar resultado\n",
+        "print(\"\\nBase com Altura_cm preenchida:\")\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7AMwPYZUHtit",
+        "outputId": "1eb34f55-e5a9-46a0-bc61-1cb406808e5a"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Base original:\n",
+            "               Nome  Altura_cm  calçado\n",
+            "0               Ana      170.0       38\n",
+            "1             Bruno        NaN       39\n",
+            "2  Gustavo Henrique      180.0       42\n",
+            "3            Daniel      176.0       40\n",
+            "4             Pedro        NaN       44\n",
+            "5            Pietro      183.0       43\n",
+            "6     Gustavo Silva      179.0       42\n",
+            "7              Caio        NaN       40\n",
+            "8             Higor      172.0       39\n",
+            "9             Paulo      184.0       43\n",
+            "\n",
+            "Base para treino (sem missing em Altura_cm):\n",
+            "               Nome  Altura_cm  calçado\n",
+            "0               Ana      170.0       38\n",
+            "2  Gustavo Henrique      180.0       42\n",
+            "3            Daniel      176.0       40\n",
+            "5            Pietro      183.0       43\n",
+            "6     Gustavo Silva      179.0       42\n",
+            "8             Higor      172.0       39\n",
+            "9             Paulo      184.0       43\n",
+            "\n",
+            "Coeficiente angular (beta1): 2.6250\n",
+            "Intercepto (beta0): 70.0893\n",
+            "\n",
+            "Base com Altura_cm preenchida:\n",
+            "               Nome   Altura_cm  calçado\n",
+            "0               Ana  170.000000       38\n",
+            "1             Bruno  172.464286       39\n",
+            "2  Gustavo Henrique  180.000000       42\n",
+            "3            Daniel  176.000000       40\n",
+            "4             Pedro  185.589286       44\n",
+            "5            Pietro  183.000000       43\n",
+            "6     Gustavo Silva  179.000000       42\n",
+            "7              Caio  175.089286       40\n",
+            "8             Higor  172.000000       39\n",
+            "9             Paulo  184.000000       43\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Utilizando a ferramenta \\texttt{SimpleImputer}**"
+      ],
+      "metadata": {
+        "id": "8AP5eXU0UaRd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.impute import SimpleImputer\n",
+        "\n",
+        "# Criando o DataFrame com dados faltantes\n",
+        "dados = pd.DataFrame({\n",
+        "    'Nome': ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo',\n",
+        "             'Fernanda', 'Gustavo', 'Helena', 'Igor', 'Juliana'],\n",
+        "    'Altura_cm': [162, np.nan, 175, 160, np.nan, 168, 180, np.nan, 172, 165],\n",
+        "    'Peso_kg': [55, 72, np.nan, 48, 70, 62, np.nan, 59, 75, np.nan],\n",
+        "    'Sexo': ['F', 'M', 'M', 'F', np.nan, 'F', 'M', np.nan, 'M', 'F']\n",
+        "})\n",
+        "\n",
+        "# Separar os dados com peso conhecido\n",
+        "dados_treino = dados[dados['Peso_kg'].notnull() & dados['Altura_cm'].notnull()]\n",
+        "\n",
+        "# Separar os dados onde o peso está faltando e a altura está presente (para prever)\n",
+        "dados_imputar = dados[dados['Peso_kg'].isnull() & dados['Altura_cm'].notnull()]\n",
+        "\n",
+        "# Criar e treinar o modelo de regressão\n",
+        "modelo = LinearRegression()\n",
+        "modelo.fit(dados_treino[['Altura_cm']], dados_treino['Peso_kg'])\n",
+        "\n",
+        "# Prever os valores faltantes de Peso com base na Altura\n",
+        "dados['Peso_kg_regressao'] = np.nan\n",
+        "dados.loc[dados_imputar.index, 'Peso_kg_regressao'] = modelo.predict(dados_imputar[['Altura_cm']])\n",
+        "\n",
+        "# Exibir o resultado\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "id": "ysKaaf7AUd34",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "ee0c1886-a204-4617-bd2a-68d427521500"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       Nome  Altura_cm  Peso_kg Sexo  Peso_kg_regressao\n",
+            "0       Ana      162.0     55.0    F                NaN\n",
+            "1     Bruno        NaN     72.0    M                NaN\n",
+            "2    Carlos      175.0      NaN    M          79.417582\n",
+            "3   Daniela      160.0     48.0    F                NaN\n",
+            "4   Eduardo        NaN     70.0  NaN                NaN\n",
+            "5  Fernanda      168.0     62.0    F                NaN\n",
+            "6   Gustavo      180.0      NaN    M          89.637363\n",
+            "7    Helena        NaN     59.0  NaN                NaN\n",
+            "8      Igor      172.0     75.0    M                NaN\n",
+            "9   Juliana      165.0      NaN    F          58.978022\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.3. Variáveis Dummy**"
+      ],
+      "metadata": {
+        "id": "z_FrexI4bMz5"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Criando um DataFrame com uma variável categórica nominal\n",
+        "df = pd.DataFrame({\n",
+        "    'Nome': ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo'],\n",
+        "    'Cidade': ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'São Paulo', 'Rio de Janeiro']\n",
+        "})\n",
+        "\n",
+        "# Exibindo o DataFrame original\n",
+        "print(\"DataFrame original:\")\n",
+        "print(df)\n",
+        "\n",
+        "# Aplicando a codificação one-hot (variáveis dummy)\n",
+        "df_dummies = pd.get_dummies(df, columns=['Cidade'])\n",
+        "\n",
+        "# Exibindo o DataFrame com variáveis dummy\n",
+        "print(\"\\nDataFrame com variáveis dummy:\")\n",
+        "print(df_dummies)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-8yG0U0gbS5W",
+        "outputId": "0fb679fa-d9f1-4549-df00-f0266580be9b"
+      },
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DataFrame original:\n",
+            "      Nome          Cidade\n",
+            "0      Ana       São Paulo\n",
+            "1    Bruno  Rio de Janeiro\n",
+            "2   Carlos  Belo Horizonte\n",
+            "3  Daniela       São Paulo\n",
+            "4  Eduardo  Rio de Janeiro\n",
+            "\n",
+            "DataFrame com variáveis dummy:\n",
+            "      Nome  Cidade_Belo Horizonte  Cidade_Rio de Janeiro  Cidade_São Paulo\n",
+            "0      Ana                  False                  False              True\n",
+            "1    Bruno                  False                   True             False\n",
+            "2   Carlos                   True                  False             False\n",
+            "3  Daniela                  False                  False              True\n",
+            "4  Eduardo                  False                   True             False\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **3. Noções sobre scikit-learn**"
+      ],
+      "metadata": {
+        "id": "vMkX5tRox78h"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.metrics import mean_squared_error"
+      ],
+      "metadata": {
+        "id": "E6fLL3dkyAJG"
+      },
+      "execution_count": 20,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "\n",
+        "# Dados simulados\n",
+        "x = np.array([[150], [160], [170], [180], [190]])\n",
+        "y = np.array([50, 55, 60, 65, 70])\n",
+        "\n",
+        "# Criar e treinar o modelo\n",
+        "modelo = LinearRegression()\n",
+        "modelo.fit(x, y)\n",
+        "\n",
+        "# Prever para altura 175\n",
+        "predicao = modelo.predict([[175]])\n",
+        "print(predicao)"
+      ],
+      "metadata": {
+        "id": "wYn-S1pc4-WB",
+        "outputId": "3646e5e0-dc02-4936-c92b-f9bb3e27ecd8",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[62.5]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
