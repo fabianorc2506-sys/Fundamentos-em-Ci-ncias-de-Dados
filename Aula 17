@@ -1,0 +1,2049 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNaYAISmbswhPHNY5i2IGBx",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/fabianorc2506-sys/Fundamentos-em-Ci-ncias-de-Dados/blob/Aulas/Aula%2017\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1. Mais sobre o pandas**"
+      ],
+      "metadata": {
+        "id": "4ma4kss0-Li5"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "1.1. Aplicação de funções e mapeamento"
+      ],
+      "metadata": {
+        "id": "_Qt7XbIR-SM3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "M_Bqor9D-FfZ",
+        "outputId": "1a66f8ab-ee13-44a0-d9d4-4812e771a674"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "     A    B\n",
+            "0  1.0  4.0\n",
+            "1  2.0  5.0\n",
+            "2  3.0  6.0\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "# Criando um DataFrame com valores\n",
+        "df = pd.DataFrame({'A': [1, 4, 9], 'B': [16, 25, 36]})\n",
+        "\n",
+        "# Aplicando a função np.sqrt a cada coluna\n",
+        "df_sqrt = df.apply(np.sqrt)\n",
+        "\n",
+        "print(df_sqrt)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "1.2. Ordenação e Classificação"
+      ],
+      "metadata": {
+        "id": "JyVnFkTGENai"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Notas dos Alunos na Prova 1 de Fundamentos em Ciências de Dados\n",
+        "\n",
+        "import pandas as pd   # Importa a biblioteca pandas com o apelido pd (para manipulação de dados tabulares)\n",
+        "import numpy as np  # Importa a biblioteca numpy com o apelido np (para operações numéricas e geração de números aleatórios)\n",
+        "\n",
+        "np.random.seed(100000003)   # Define uma semente para o gerador de números aleatórios, garantindo que os resultados sejam reprodutíveis\n",
+        "\n",
+        "# Gera uma série (pandas Series) com 5 notas aleatórias entre 0 e 10, associadas aos nomes dos alunos\n",
+        "notas = pd.Series(np.random.uniform(0, 10, size=5), index=['Pedro', 'Ana', 'Aline', 'Bruno', 'Daniel'])\n",
+        "\n",
+        "# Ordena a série pelas etiquetas (nomes dos alunos) em ordem alfabética\n",
+        "notas.sort_index()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 241
+        },
+        "id": "coluS5DTEOXw",
+        "outputId": "4b36cc30-4ab3-4139-9a5b-2d6966142ab3"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Aline     7.320459\n",
+              "Ana       8.259139\n",
+              "Bruno     6.154358\n",
+              "Daniel    9.658523\n",
+              "Pedro     8.295993\n",
+              "dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>Aline</th>\n",
+              "      <td>7.320459</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>Ana</th>\n",
+              "      <td>8.259139</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>Bruno</th>\n",
+              "      <td>6.154358</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>Daniel</th>\n",
+              "      <td>9.658523</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>Pedro</th>\n",
+              "      <td>8.295993</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 2
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = pd.DataFrame(np.arange(12).reshape((3, 4)),\n",
+        "                  index=['gamma', 'alpha', 'beta'],\n",
+        "                  columns=['z', 'x', 'y', 'w'])\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "id": "7o6Dut6USX8D",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "4c0fe707-46e1-47fa-fb0a-31a7f115919c"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "       z  x   y   w\n",
+            "gamma  0  1   2   3\n",
+            "alpha  4  5   6   7\n",
+            "beta   8  9  10  11\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.sort_index()         # Ordena pelas linhas (índice das linhas)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 143
+        },
+        "id": "-MbQ2N-HSlq5",
+        "outputId": "75d0fe09-1ae6-48ed-efd9-146451bf3c56"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       z  x   y   w\n",
+              "alpha  4  5   6   7\n",
+              "beta   8  9  10  11\n",
+              "gamma  0  1   2   3"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-4da1c4ba-ecae-481a-bea5-884d8f44647f\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>z</th>\n",
+              "      <th>x</th>\n",
+              "      <th>y</th>\n",
+              "      <th>w</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>alpha</th>\n",
+              "      <td>4</td>\n",
+              "      <td>5</td>\n",
+              "      <td>6</td>\n",
+              "      <td>7</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>beta</th>\n",
+              "      <td>8</td>\n",
+              "      <td>9</td>\n",
+              "      <td>10</td>\n",
+              "      <td>11</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>gamma</th>\n",
+              "      <td>0</td>\n",
+              "      <td>1</td>\n",
+              "      <td>2</td>\n",
+              "      <td>3</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-4da1c4ba-ecae-481a-bea5-884d8f44647f')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-4da1c4ba-ecae-481a-bea5-884d8f44647f button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-4da1c4ba-ecae-481a-bea5-884d8f44647f');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 3,\n  \"fields\": [\n    {\n      \"column\": \"z\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 0,\n        \"max\": 8,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          4,\n          8,\n          0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"x\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 1,\n        \"max\": 9,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          5,\n          9,\n          1\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"y\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 2,\n        \"max\": 10,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          6,\n          10,\n          2\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"w\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 3,\n        \"max\": 11,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          7,\n          11,\n          3\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 4
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "df.sort_index(axis=1)   # Ordena pelas colunas (índice das colunas)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 143
+        },
+        "id": "jwo8XsfhSnky",
+        "outputId": "28efa826-1e80-402c-94ec-138d214415a9"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "        w  x   y  z\n",
+              "gamma   3  1   2  0\n",
+              "alpha   7  5   6  4\n",
+              "beta   11  9  10  8"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-6ddabd05-31e8-484f-9cc1-3be8776e2940\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>w</th>\n",
+              "      <th>x</th>\n",
+              "      <th>y</th>\n",
+              "      <th>z</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>gamma</th>\n",
+              "      <td>3</td>\n",
+              "      <td>1</td>\n",
+              "      <td>2</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>alpha</th>\n",
+              "      <td>7</td>\n",
+              "      <td>5</td>\n",
+              "      <td>6</td>\n",
+              "      <td>4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>beta</th>\n",
+              "      <td>11</td>\n",
+              "      <td>9</td>\n",
+              "      <td>10</td>\n",
+              "      <td>8</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-6ddabd05-31e8-484f-9cc1-3be8776e2940')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-6ddabd05-31e8-484f-9cc1-3be8776e2940 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-6ddabd05-31e8-484f-9cc1-3be8776e2940');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 3,\n  \"fields\": [\n    {\n      \"column\": \"w\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 3,\n        \"max\": 11,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          3,\n          7,\n          11\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"x\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 1,\n        \"max\": 9,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          1,\n          5,\n          9\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"y\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 2,\n        \"max\": 10,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          2,\n          6,\n          10\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"z\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 4,\n        \"min\": 0,\n        \"max\": 8,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          0,\n          4,\n          8\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 5
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**1.3. Estatísticas Descritivas**\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "Nli72pdtVQWr"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = pd.DataFrame([[np.nan, 3.2],\n",
+        "                   [5.5, np.nan],\n",
+        "                   [8.1, 1.1],\n",
+        "                   [np.nan, 0.0]],\n",
+        "                  index=['w', 'x', 'y', 'z'],\n",
+        "                  columns=['alpha', 'beta'])\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cx84sgzWVfJS",
+        "outputId": "c73a909c-af70-482b-eb49-715695c72d61"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "   alpha  beta\n",
+            "w    NaN   3.2\n",
+            "x    5.5   NaN\n",
+            "y    8.1   1.1\n",
+            "z    NaN   0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.sum()                        # Soma por coluna (axis=0)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 147
+        },
+        "id": "9YgG-oh08lgB",
+        "outputId": "ad2e4f3b-f284-40f3-b95f-e2bf1ffef63e"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "alpha    13.6\n",
+              "beta      4.3\n",
+              "dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>alpha</th>\n",
+              "      <td>13.6</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>beta</th>\n",
+              "      <td>4.3</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.sum(axis='columns')         # Soma por linha (axis=1)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 210
+        },
+        "id": "GBkEv2e_coKm",
+        "outputId": "cba6e40a-fdd6-4f83-c727-6950b4a2563e"
+      },
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "w    3.2\n",
+              "x    5.5\n",
+              "y    9.2\n",
+              "z    0.0\n",
+              "dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>w</th>\n",
+              "      <td>3.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>x</th>\n",
+              "      <td>5.5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>y</th>\n",
+              "      <td>9.2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>z</th>\n",
+              "      <td>0.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.mean(axis='columns', skipna=False)  # Média sem ignorar NaNs"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 210
+        },
+        "id": "erRrXDN3coXa",
+        "outputId": "d2945ea0-f6e6-4047-ac19-fdc733d8d6d5"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "w    NaN\n",
+              "x    NaN\n",
+              "y    4.6\n",
+              "z    NaN\n",
+              "dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>0</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>w</th>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>x</th>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>y</th>\n",
+              "      <td>4.6</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>z</th>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Exemplo: Morte por 100 mil habitantes.**"
+      ],
+      "metadata": {
+        "id": "COCllk60ymQs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "dados = {'Estado': ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',\n",
+        "               'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN',\n",
+        "               'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'],\n",
+        "    'Taxa_Homicidios_100mil': [28.6, 37.9, 38.8, 50.6, 47.1, 35.5, 11.3, 29.3, 25.2, 28.0,\n",
+        "                                12.6, 18.7, 29.3, 36.9, 26.1, 37.8, 25.0, 22.7, 27.9, 36.7,\n",
+        "                                34.3, 30.5, 19.8, 9.1, 34.8, 8.4, 30.5]}\n",
+        "\n",
+        "df = pd.DataFrame(dados).set_index('Estado')\n",
+        "df.describe()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "id": "EuRtfNepylJq",
+        "outputId": "4e25438a-94e6-41ee-8b45-7f6d564f30f5"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "       Taxa_Homicidios_100mil\n",
+              "count               27.000000\n",
+              "mean                28.644444\n",
+              "std                 10.648342\n",
+              "min                  8.400000\n",
+              "25%                 23.850000\n",
+              "50%                 29.300000\n",
+              "75%                 36.100000\n",
+              "max                 50.600000"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-412635a2-201d-4d4e-a2f4-b685b4f3918f\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Taxa_Homicidios_100mil</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>27.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>28.644444</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>10.648342</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>8.400000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>23.850000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>29.300000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>36.100000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>50.600000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-412635a2-201d-4d4e-a2f4-b685b4f3918f')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-412635a2-201d-4d4e-a2f4-b685b4f3918f button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-412635a2-201d-4d4e-a2f4-b685b4f3918f');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 8,\n  \"fields\": [\n    {\n      \"column\": \"Taxa_Homicidios_100mil\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 13.47356138570028,\n        \"min\": 8.4,\n        \"max\": 50.6,\n        \"num_unique_values\": 8,\n        \"samples\": [\n          28.644444444444442,\n          29.3,\n          27.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 10
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.4. Reformatação com Indexação Hierárquica**"
+      ],
+      "metadata": {
+        "id": "frovCQbA3RuH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "dados = pd.Series(np.arange(9),\n",
+        "          index=[['a', 'a', 'a', 'b', 'b', 'c', 'c', 'd', 'd'],\n",
+        "                 [1, 2, 3, 1, 3, 1, 2, 2, 3]])\n",
+        "print(dados)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "J31NOrSU6Q-O",
+        "outputId": "3d38bd45-1254-4b2d-dcd9-8cf7cc8e2536"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "a  1    0\n",
+            "   2    1\n",
+            "   3    2\n",
+            "b  1    3\n",
+            "   3    4\n",
+            "c  1    5\n",
+            "   2    6\n",
+            "d  2    7\n",
+            "   3    8\n",
+            "dtype: int64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "dados.unstack()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 175
+        },
+        "id": "MwGZfGwi_fB5",
+        "outputId": "ccd4bd21-a2a3-4a2f-b879-5b5711c5db03"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "     1    2    3\n",
+              "a  0.0  1.0  2.0\n",
+              "b  3.0  NaN  4.0\n",
+              "c  5.0  6.0  NaN\n",
+              "d  NaN  7.0  8.0"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-1aeb75f7-76ee-4ecb-9011-4d72e7ac5ce0\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>1</th>\n",
+              "      <th>2</th>\n",
+              "      <th>3</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>a</th>\n",
+              "      <td>0.0</td>\n",
+              "      <td>1.0</td>\n",
+              "      <td>2.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>b</th>\n",
+              "      <td>3.0</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>4.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>c</th>\n",
+              "      <td>5.0</td>\n",
+              "      <td>6.0</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>d</th>\n",
+              "      <td>NaN</td>\n",
+              "      <td>7.0</td>\n",
+              "      <td>8.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-1aeb75f7-76ee-4ecb-9011-4d72e7ac5ce0')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-1aeb75f7-76ee-4ecb-9011-4d72e7ac5ce0 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-1aeb75f7-76ee-4ecb-9011-4d72e7ac5ce0');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"dados\",\n  \"rows\": 4,\n  \"fields\": [\n    {\n      \"column\": 1,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 2.5166114784235836,\n        \"min\": 0.0,\n        \"max\": 5.0,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          0.0,\n          3.0,\n          5.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 2,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 3.214550253664318,\n        \"min\": 1.0,\n        \"max\": 7.0,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          1.0,\n          6.0,\n          7.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": 3,\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 3.055050463303893,\n        \"min\": 2.0,\n        \"max\": 8.0,\n        \"num_unique_values\": 3,\n        \"samples\": [\n          2.0,\n          4.0,\n          8.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 12
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "dados = {'Estado': ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'], 'Taxa_Homicidios_100mil': [28.6, 37.9, 38.8, 50.6, 47.1, 35.5, 11.3, 29.3, 25.2, 28.0, 12.6, 18.7, 29.3, 36.9, 26.1, 37.8, 25.0, 22.7, 27.9, 36.7, 34.3, 30.5, 19.8, 9.1, 34.8, 8.4, 30.5]} # Criando um dicionário com dados reais: taxas de homicídios por 100 mil habitantes\n",
+        "df = pd.DataFrame(dados) # Criando o DataFrame com os dados fornecidos\n",
+        "\n",
+        "df['Região'] = ['Norte', 'Nordeste', 'Norte', 'Norte', 'Nordeste', 'Nordeste', 'Centro-Oeste', 'Sudeste', 'Centro-Oeste', 'Nordeste', 'Sudeste', 'Centro-Oeste', 'Centro-Oeste', 'Norte', 'Nordeste', 'Nordeste', 'Nordeste', 'Sul', 'Sudeste', 'Nordeste', 'Norte', 'Norte', 'Sul', 'Sul', 'Nordeste', 'Sudeste', 'Norte'] # Adicionando a coluna 'Região' com a respectiva região geográfica de cada estado\n",
+        "\n",
+        "df.set_index(['Região', 'Estado'], inplace=True)   # Transformando 'Região' e 'Estado' em índice hierárquico (multi-índice)\n",
+        "df_unstacked = df.unstack(level=-1) # Usando unstack para transformar o nível 'Estado' do índice em colunas\n",
+        "df_stacked = df_unstacked.stack() # Usando stack para reverter a operação anterior, transformando as colunas em índice novamente"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gxnFAfz8B00Z",
+        "outputId": "fdbb9bf4-bc3f-4b93-81e7-0abd407876d4"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/tmp/ipython-input-1282660596.py:9: FutureWarning: The previous implementation of stack is deprecated and will be removed in a future version of pandas. See the What's New notes for pandas 2.1.0 for details. Specify future_stack=True to adopt the new implementation and silence this warning.\n",
+            "  df_stacked = df_unstacked.stack() # Usando stack para reverter a operação anterior, transformando as colunas em índice novamente\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"DataFrame Original:\")   # Exibindo os três DataFrames para comparação\n",
+        "print(df.head())               # Mostra os primeiros 5 estados com índice hierárquico"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rpRexUF2ed7T",
+        "outputId": "e84bd4c7-863b-49a9-a95d-25f67e8016e5"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DataFrame Original:\n",
+            "                 Taxa_Homicidios_100mil\n",
+            "Região   Estado                        \n",
+            "Norte    AC                        28.6\n",
+            "Nordeste AL                        37.9\n",
+            "Norte    AM                        38.8\n",
+            "         AP                        50.6\n",
+            "Nordeste BA                        47.1\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nDataFrame após unstack:\")\n",
+        "print(df_unstacked.head())     # Mostra os dados com os estados virando colunas"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "CpaEc1rIeeKq",
+        "outputId": "d1896b48-a94a-45da-d4d9-109bff2ccbad"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "DataFrame após unstack:\n",
+            "             Taxa_Homicidios_100mil                                            \\\n",
+            "Estado                           AC    AL    AM    AP    BA    CE    DF    ES   \n",
+            "Região                                                                          \n",
+            "Centro-Oeste                    NaN   NaN   NaN   NaN   NaN   NaN  11.3   NaN   \n",
+            "Nordeste                        NaN  37.9   NaN   NaN  47.1  35.5   NaN   NaN   \n",
+            "Norte                          28.6   NaN  38.8  50.6   NaN   NaN   NaN   NaN   \n",
+            "Sudeste                         NaN   NaN   NaN   NaN   NaN   NaN   NaN  29.3   \n",
+            "Sul                             NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   \n",
+            "\n",
+            "                          ...                                                 \\\n",
+            "Estado          GO    MA  ...    PR    RJ    RN    RO    RR    RS   SC    SE   \n",
+            "Região                    ...                                                  \n",
+            "Centro-Oeste  25.2   NaN  ...   NaN   NaN   NaN   NaN   NaN   NaN  NaN   NaN   \n",
+            "Nordeste       NaN  28.0  ...   NaN   NaN  36.7   NaN   NaN   NaN  NaN  34.8   \n",
+            "Norte          NaN   NaN  ...   NaN   NaN   NaN  34.3  30.5   NaN  NaN   NaN   \n",
+            "Sudeste        NaN   NaN  ...   NaN  27.9   NaN   NaN   NaN   NaN  NaN   NaN   \n",
+            "Sul            NaN   NaN  ...  22.7   NaN   NaN   NaN   NaN  19.8  9.1   NaN   \n",
+            "\n",
+            "                         \n",
+            "Estado         SP    TO  \n",
+            "Região                   \n",
+            "Centro-Oeste  NaN   NaN  \n",
+            "Nordeste      NaN   NaN  \n",
+            "Norte         NaN  30.5  \n",
+            "Sudeste       8.4   NaN  \n",
+            "Sul           NaN   NaN  \n",
+            "\n",
+            "[5 rows x 27 columns]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nDataFrame após stack:\")\n",
+        "print(df_stacked.head())       # Retorna ao formato com índice hierárquico"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fpED0M-SeeXx",
+        "outputId": "bbda984b-43cf-434b-a9cf-ea97cd879606"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "DataFrame após stack:\n",
+            "                     Taxa_Homicidios_100mil\n",
+            "Região       Estado                        \n",
+            "Centro-Oeste DF                        11.3\n",
+            "             GO                        25.2\n",
+            "             MS                        18.7\n",
+            "             MT                        29.3\n",
+            "Nordeste     AL                        37.9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.6. Pivotamento de formato \"largo\" para formato \"longo\"**"
+      ],
+      "metadata": {
+        "id": "HH8lJYisyaxd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.DataFrame({'chave': ['foo', 'bar', 'baz'], 'A': [1, 2, 3], 'B': [4, 5, 6], 'C': [7, 8, 9]})\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vlNpV4LEyd5U",
+        "outputId": "e277f31c-8843-4e19-e14e-548cb82cdf30"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "  chave  A  B  C\n",
+            "0   foo  1  4  7\n",
+            "1   bar  2  5  8\n",
+            "2   baz  3  6  9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df_melted = pd.melt(df, id_vars=['chave'])\n",
+        "print(df_melted)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "4pm4DbFTyqgE",
+        "outputId": "6b10f6b2-6a23-4410-dd13-963ec4cbcfa0"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "  chave variable  value\n",
+            "0   foo        A      1\n",
+            "1   bar        A      2\n",
+            "2   baz        A      3\n",
+            "3   foo        B      4\n",
+            "4   bar        B      5\n",
+            "5   baz        B      6\n",
+            "6   foo        C      7\n",
+            "7   bar        C      8\n",
+            "8   baz        C      9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df1 = df_melted.pivot(index='chave', columns='variable', values='value')\n",
+        "print(df1)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Re5GWjW72UqH",
+        "outputId": "9904a8e2-676b-45aa-9994-4bbd9bc5ff05"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "variable  A  B  C\n",
+            "chave            \n",
+            "bar       2  5  8\n",
+            "baz       3  6  9\n",
+            "foo       1  4  7\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Restaurando índice padrão\n",
+        "df1 = df1.reset_index()\n",
+        "print(df1)"
+      ],
+      "metadata": {
+        "id": "4QzhK5Fu3hR-",
+        "outputId": "baedbbaf-766d-45ca-ca5a-e6fcf2e2f008",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "variable chave  A  B  C\n",
+            "0          bar  2  5  8\n",
+            "1          baz  3  6  9\n",
+            "2          foo  1  4  7\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.7. Funcionamento de groupby**"
+      ],
+      "metadata": {
+        "id": "aOsjUCXQWeZG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Este exemplo agrupa os estados por região e calcula a população média de cada uma.\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Dados reais (IBGE 2022): população em milhões\n",
+        "dados = {'Estado': ['Rondônia', 'Acre', 'Amazonas', 'Roraima', 'Pará', 'Amapá', 'Tocantins', 'Maranhão', 'Piauí', 'Ceará', 'Rio Grande do Norte', 'Paraíba', 'Pernambuco', 'Alagoas', 'Sergipe', 'Bahia', 'Minas Gerais', 'Espírito Santo', 'Rio de Janeiro', 'São Paulo', 'Paraná', 'Santa Catarina', 'Rio Grande do Sul', 'Mato Grosso do Sul', 'Mato Grosso', 'Goiás', 'Distrito Federal'], 'Região': ['Norte']*7 + ['Nordeste']*9 + ['Sudeste']*4 + ['Sul']*3 + ['Centro-Oeste']*4, 'População (milhões)': [1.58, 0.83, 3.94, 0.65, 8.69, 0.78, 1.61, 6.84, 3.27, 8.79, 3.30, 4.03, 9.68, 3.13, 2.34, 14.99, 20.54, 4.11, 16.29, 44.42, 11.44, 7.61, 10.88, 2.80, 3.65, 7.06, 2.82]}\n",
+        "df = pd.DataFrame(dados)\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3c2omppFb7AH",
+        "outputId": "6208d314-fbbc-4502-bb86-65cf9c90b3a0"
+      },
+      "execution_count": 22,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "                 Estado        Região  População (milhões)\n",
+            "0              Rondônia         Norte                 1.58\n",
+            "1                  Acre         Norte                 0.83\n",
+            "2              Amazonas         Norte                 3.94\n",
+            "3               Roraima         Norte                 0.65\n",
+            "4                  Pará         Norte                 8.69\n",
+            "5                 Amapá         Norte                 0.78\n",
+            "6             Tocantins         Norte                 1.61\n",
+            "7              Maranhão      Nordeste                 6.84\n",
+            "8                 Piauí      Nordeste                 3.27\n",
+            "9                 Ceará      Nordeste                 8.79\n",
+            "10  Rio Grande do Norte      Nordeste                 3.30\n",
+            "11              Paraíba      Nordeste                 4.03\n",
+            "12           Pernambuco      Nordeste                 9.68\n",
+            "13              Alagoas      Nordeste                 3.13\n",
+            "14              Sergipe      Nordeste                 2.34\n",
+            "15                Bahia      Nordeste                14.99\n",
+            "16         Minas Gerais       Sudeste                20.54\n",
+            "17       Espírito Santo       Sudeste                 4.11\n",
+            "18       Rio de Janeiro       Sudeste                16.29\n",
+            "19            São Paulo       Sudeste                44.42\n",
+            "20               Paraná           Sul                11.44\n",
+            "21       Santa Catarina           Sul                 7.61\n",
+            "22    Rio Grande do Sul           Sul                10.88\n",
+            "23   Mato Grosso do Sul  Centro-Oeste                 2.80\n",
+            "24          Mato Grosso  Centro-Oeste                 3.65\n",
+            "25                Goiás  Centro-Oeste                 7.06\n",
+            "26     Distrito Federal  Centro-Oeste                 2.82\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Agrupamento por região e cálculo da população média\n",
+        "resultado = df.groupby('Região')['População (milhões)'].mean()\n",
+        "print(resultado)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6QaXfnEREmK6",
+        "outputId": "15c12b30-2a3a-4989-979b-48e78377c43e"
+      },
+      "execution_count": 23,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Região\n",
+            "Centro-Oeste     4.082500\n",
+            "Nordeste         6.263333\n",
+            "Norte            2.582857\n",
+            "Sudeste         21.340000\n",
+            "Sul              9.976667\n",
+            "Name: População (milhões), dtype: float64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Agrupamento por região e cálculo de Estatísticas Descritivas\n",
+        "resultado = df.groupby('Região')['População (milhões)'].describe()\n",
+        "print(resultado)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "aQsdJSlaE8x5",
+        "outputId": "2b0735df-5862-47c1-f6b4-8385cb725188"
+      },
+      "execution_count": 24,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "              count       mean        std   min     25%     50%      75%  \\\n",
+            "Região                                                                     \n",
+            "Centro-Oeste    4.0   4.082500   2.024127  2.80   2.815   3.235   4.5025   \n",
+            "Nordeste        9.0   6.263333   4.220255  2.34   3.270   4.030   8.7900   \n",
+            "Norte           7.0   2.582857   2.919759  0.65   0.805   1.580   2.7750   \n",
+            "Sudeste         4.0  21.340000  16.888870  4.11  13.245  18.415  26.5100   \n",
+            "Sul             3.0   9.976667   2.068631  7.61   9.245  10.880  11.1600   \n",
+            "\n",
+            "                max  \n",
+            "Região               \n",
+            "Centro-Oeste   7.06  \n",
+            "Nordeste      14.99  \n",
+            "Norte          8.69  \n",
+            "Sudeste       44.42  \n",
+            "Sul           11.44  \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Agrupamento por região e cálculo do descio padrão\n",
+        "resultado = df.groupby('Região')['População (milhões)'].std()\n",
+        "print(resultado)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "J0wQU4MgFZNR",
+        "outputId": "dba1899a-9077-476e-c5bd-289d168db545"
+      },
+      "execution_count": 25,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Região\n",
+            "Centro-Oeste     2.024127\n",
+            "Nordeste         4.220255\n",
+            "Norte            2.919759\n",
+            "Sudeste         16.888870\n",
+            "Sul              2.068631\n",
+            "Name: População (milhões), dtype: float64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **1.8. Agrupamento com \\texttt{groupby} e uma chave**\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "UVIRycXreNo4"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "df = pd.DataFrame({'chave1': ['a', 'a', 'b', 'b', 'a'],\n",
+        "                   'chave2': ['um', 'dois', 'um', 'dois', 'um'],\n",
+        "                   'data1': np.arange(2, 11, 2),\n",
+        "                   'data2': np.linspace(0, 10, num = 5)})\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "p4Yu6wjqeXgX",
+        "outputId": "f2bfeb50-b494-458a-d123-b734a4cf1221"
+      },
+      "execution_count": 27,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "  chave1 chave2  data1  data2\n",
+            "0      a     um      2    0.0\n",
+            "1      a   dois      4    2.5\n",
+            "2      b     um      6    5.0\n",
+            "3      b   dois      8    7.5\n",
+            "4      a     um     10   10.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data1_agrup = df['data1'].groupby(df['chave1'])\n",
+        "print(data1_agrup)\n",
+        "#cria um objeto SeriesGroupBy, que apenas define como os dados devem ser agrupados, mas ainda não aplicou nenhuma operação como sum(), mean(),"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1zeAt9lwidnX",
+        "outputId": "d1a8b522-6a92-438e-9d8c-c36eabacd1f1"
+      },
+      "execution_count": 28,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "<pandas.core.groupby.generic.SeriesGroupBy object at 0x7f3a0e11fe00>\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Média da coluna data1, agrupada por chave1\n",
+        "print(data1_agrup.mean())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HqCTTmM9kPd5",
+        "outputId": "6c1664f1-fe66-40e8-fcd4-5d62c025f997"
+      },
+      "execution_count": 29,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "chave1\n",
+            "a    5.333333\n",
+            "b    7.000000\n",
+            "Name: data1, dtype: float64\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Exemplo real: Agrupamento por estado e setor**"
+      ],
+      "metadata": {
+        "id": "YaRFmWU_omjB"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = pd.DataFrame({\n",
+        "    'estado': ['SP', 'SP', 'SP', 'RJ', 'RJ', 'MG'],\n",
+        "    'setor': ['Indústria', 'Serviços', 'Comércio',\n",
+        "              'Indústria', 'Serviços', 'Comércio'],\n",
+        "    'salario': [4200, 5000, 3100, 3900, 4800, 2900]})\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "n0JqOq-Aoo-I",
+        "outputId": "2c1bcc7a-a851-4f45-b64d-79a96245f057"
+      },
+      "execution_count": 30,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "  estado      setor  salario\n",
+            "0     SP  Indústria     4200\n",
+            "1     SP   Serviços     5000\n",
+            "2     SP   Comércio     3100\n",
+            "3     RJ  Indústria     3900\n",
+            "4     RJ   Serviços     4800\n",
+            "5     MG   Comércio     2900\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.groupby('estado')['salario'].mean()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 210
+        },
+        "id": "iTcvVNutqhLg",
+        "outputId": "ea28a6a3-cc9c-428f-c3e3-406f664d75ef"
+      },
+      "execution_count": 31,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "estado\n",
+              "MG    2900.0\n",
+              "RJ    4350.0\n",
+              "SP    4100.0\n",
+              "Name: salario, dtype: float64"
+            ],
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>salario</th>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>estado</th>\n",
+              "      <th></th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>MG</th>\n",
+              "      <td>2900.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>RJ</th>\n",
+              "      <td>4350.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>SP</th>\n",
+              "      <td>4100.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div><br><label><b>dtype:</b> float64</label>"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 31
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.groupby(['estado', 'setor'])['salario'].mean().unstack()"
+      ],
+      "metadata": {
+        "id": "e0zN4sZMsFd4",
+        "outputId": "9092752b-7c9e-4dad-f0b7-c8731380a753",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 175
+        }
+      },
+      "execution_count": 32,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "setor   Comércio  Indústria  Serviços\n",
+              "estado                               \n",
+              "MG        2900.0        NaN       NaN\n",
+              "RJ           NaN     3900.0    4800.0\n",
+              "SP        3100.0     4200.0    5000.0"
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-973cfdb4-1567-4dc8-a743-0b7e08d263f3\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th>setor</th>\n",
+              "      <th>Comércio</th>\n",
+              "      <th>Indústria</th>\n",
+              "      <th>Serviços</th>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>estado</th>\n",
+              "      <th></th>\n",
+              "      <th></th>\n",
+              "      <th></th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>MG</th>\n",
+              "      <td>2900.0</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>NaN</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>RJ</th>\n",
+              "      <td>NaN</td>\n",
+              "      <td>3900.0</td>\n",
+              "      <td>4800.0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>SP</th>\n",
+              "      <td>3100.0</td>\n",
+              "      <td>4200.0</td>\n",
+              "      <td>5000.0</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-973cfdb4-1567-4dc8-a743-0b7e08d263f3')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-973cfdb4-1567-4dc8-a743-0b7e08d263f3 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-973cfdb4-1567-4dc8-a743-0b7e08d263f3');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 3,\n  \"fields\": [\n    {\n      \"column\": \"estado\",\n      \"properties\": {\n        \"dtype\": \"string\",\n        \"num_unique_values\": 3,\n        \"samples\": [\n          \"MG\",\n          \"RJ\",\n          \"SP\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Com\\u00e9rcio\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 141.4213562373095,\n        \"min\": 2900.0,\n        \"max\": 3100.0,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          3100.0,\n          2900.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Ind\\u00fastria\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 212.13203435596427,\n        \"min\": 3900.0,\n        \"max\": 4200.0,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          4200.0,\n          3900.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Servi\\u00e7os\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 141.4213562373095,\n        \"min\": 4800.0,\n        \"max\": 5000.0,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          5000.0,\n          4800.0\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 32
+        }
+      ]
+    }
+  ]
+}
